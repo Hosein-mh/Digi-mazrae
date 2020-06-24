@@ -1,0 +1,5 @@
+const TOGGLETHEME ='THOGGLETHEME';
+
+export {
+  TOGGLETHEME,
+}
