@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 import { AppbarBg, navbarTextColor, backgroundColor, modalBorderColor, } from '../../theme';
 
+const Root = styled.div`
+  position: relative;
+`;
+
 const SettingsIcon = styled.span`
   width: 3rem;
   height: 3rem;
@@ -60,20 +64,9 @@ const ModalTitle = styled.p`
   margin: 10px auto;
 `;
 
-const DarkBehindModal = styled.div`
-  width: 100vw;
-  height: 100vh;
-  visibility: ${props => props.open ? 'visible' : 'hidden'};
-  position: absolute;
-  top: 3rem;
-  left: 0;
-  background-color: rgba(0,0,0,.2);
-  z-index: 10;
-`;
-
 export {
+  Root,
   SettingsIcon,
   SettingModal,
-  DarkBehindModal,
   ModalTitle,
 }

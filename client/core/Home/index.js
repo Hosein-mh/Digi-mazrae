@@ -1,15 +1,10 @@
 import React from 'react'
-import { Root, LandContainer} from './style';
-import RootContainer from '../../components/RootContainer';
-
+import HomeLandingPage from '../../components/HomeLandingPage'
+import { Root } from './style';
 export default function Home() {
   return (
     <Root>
-      <LandContainer>
-        <RootContainer>
-            <h1>محتوای اصلی</h1>
-        </RootContainer>
-      </LandContainer>
+      <HomeLandingPage />
     </Root>
   )
 }

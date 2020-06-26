@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { AppBar, Navbar, Logo } from './style';
+import { AppBar, Navbar, Logo, LinksContainer } from './style';
 import { Link } from 'react-router-dom';
 import logoLight from '../../assets/images/logoLight.png';
 import logoDark from '../../assets/images/logoDark.png';
@@ -14,12 +14,14 @@ export default function Menu() {
     <AppBar>
       <Navbar>
         <RootContainer>
-          <Link to='/' style={{display: 'flex'}}>
-            <Logo src={darkThemeEnabled ? logoDark : logoLight} />
-          </Link>
-          <div>
-            <Settings />
-          </div>
+          <LinksContainer>
+            <Link to='/' style={{display: 'flex'}}>
+              <Logo src={darkThemeEnabled ? logoDark : logoLight} />
+            </Link>
+            <div>
+              <Settings />
+            </div>
+          </LinksContainer>
         </RootContainer>
       </Navbar>
     </AppBar>
