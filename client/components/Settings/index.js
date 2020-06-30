@@ -1,5 +1,5 @@
-import React, { Fragment, useState } from 'react'
-import { Root, SettingsIcon, SettingModal, ModalTitle } from './style';
+import React, {useState} from 'react';
+import {Root, SettingsIcon, SettingModal, ModalTitle} from './style';
 import ThemeToggler from '../ThemeToggler';
 
 
@@ -7,7 +7,7 @@ export default function Settings() {
   const [open, setOpen] = useState(false);
   const dialogHandler = () => {
     setOpen(!open);
-  }
+  };
 
   return (
     <Root>
@@ -17,10 +17,10 @@ export default function Settings() {
           <circle id="Ellipse_1" data-name="Ellipse 1" cx="32.5" cy="32.5" r="32.5" transform="translate(78.667 78)" fill="#fff"/>
         </svg>
       </SettingsIcon>
-      <SettingModal open={open}>
+      <SettingModal id='setting' open={open}>
         <ModalTitle>حالت تاریک</ModalTitle>
         <ThemeToggler />
       </SettingModal>
     </Root>
-  )
+  );
 }

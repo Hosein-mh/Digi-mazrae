@@ -5,7 +5,7 @@ import landingPageBg from '../../assets/images/landingPageBg.jpg';
 
 const Root = styled.div`
   width: 100%;
-  height: 400px;
+  height: 100vh;
   display: flex;
   justify-content: center;
   color: #fff;
@@ -17,9 +17,6 @@ const Root = styled.div`
   }
   @media ${customMedia.aboveSmallestDesktop} {
     height: 800px;
-  }
-  @media ${customMedia.aboveSmallestHd} {
-    height: 1000px;
   }
 `;
 
@@ -56,6 +53,9 @@ const Title = styled.h1`
   @media ${customMedia.belowLargestMobile} {
     font-size: 1.3rem;
   }
+  @media ${customMedia.aboveSmallestDesktop} {
+    margin-top: 15.5rem;
+  }
 `;
 
 const SubTitle = styled.h2`
@@ -70,11 +70,27 @@ const SubTitle = styled.h2`
   }
 `;
 
+const Carousel = styled.div`
+  position: absolute;
+  bottom: -100px;
+  width: 100%;
+  display: flex;
+  margin-top: 1rem;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  
+  @media ${customMedia.aboveSmallestDesktop} {
+    bottom: -200px;
+  }
+`;
+
 export {
   Root,
   LandContainer,
   LandRoot,
   Title,
   SubTitle,
+  Carousel,
 }
 

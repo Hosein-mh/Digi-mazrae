@@ -1,5 +1,6 @@
 const path = require('path')
 const nodeExternals = require('webpack-node-externals')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CURRENT_WORKING_DIR = process.cwd()
 
 const config = {
@@ -29,6 +30,18 @@ const config = {
                 use: {
                     loader: 'url-loader',
                 },
+            },
+            {
+                test: /\.css$/,
+                use: [
+                'isomorphic-style-loader',
+                {
+                    loader: 'css-loader',
+                    options: {
+                    importLoaders: 1
+                    }
+                }
+                ]
             }
         ]
     }

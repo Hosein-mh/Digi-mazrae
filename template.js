@@ -15,7 +15,7 @@ export default ({markup, css, preloadedState}) => {
         </head>
         <body style="margin:0">
           <div id="root">${markup}</div>
-          <style id="jss-server-side">${css}</style>
+          <style id="jss-server-side">${[...css].join('')}</style>
           <script>
           // WARNING: See the following for security issues around embedding JSON in HTML:
           // https://redux.js.org/recipes/server-rendering/#security-considerations

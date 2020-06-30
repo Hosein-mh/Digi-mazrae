@@ -15,6 +15,7 @@ import { StaticRouter } from 'react-router-dom'
 import { Provider as ReduxProvider } from 'react-redux';
 import { createStore } from 'redux';
 import rootReducer from '../client/redux/reducers';
+import StyleContext from 'isomorphic-style-loader/StyleContext';
 
 import { ServerStyleSheet, ThemeProvider } from 'styled-components';
 // import theme from './../client/theme'
@@ -50,21 +51,25 @@ app.get('*', (req, res) => {
   const store = createStore(rootReducer);
   const preloadedState = store.getState();
   const title = "دیجی مزرعه، سفارش آنلاین خشکبار و سبزیجات"
+  // const css = sheet.toString();
+  const css = new Set();
+  const insertCss = (...styles) => styles.forEach(style => css.add(style._getCss()))
   const markup = ReactDOMServer.renderToString(
     sheet.collectStyles(
-      <ReduxProvider store={store}>
-        <StaticRouter location={req.url} context={context}>
-            <ThemeProvider theme={{theme: 'light'}}>
-              <MainRouter test="TEST PROP"/>
-            </ThemeProvider>
-        </StaticRouter>
-      </ReduxProvider>
+      <StyleContext.Provider value={{ insertCss }}>
+        <ReduxProvider store={store}>
+          <StaticRouter location={req.url} context={context}>
+              <ThemeProvider theme={{theme: 'light'}}>
+                <MainRouter test="TEST PROP"/>
+              </ThemeProvider>
+          </StaticRouter>
+        </ReduxProvider>
+      </StyleContext.Provider>
      )
   )
     if (context.url) {
       return res.redirect(303, context.url)
     }
-    const css = sheet.toString()
     res.status(200).send(Template({
       markup: markup,
       css: css,

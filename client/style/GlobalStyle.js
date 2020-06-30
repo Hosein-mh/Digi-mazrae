@@ -19,6 +19,7 @@ import ShabnamThinEot from './fonts/Shabnam-Thin.eot';
 import ShabnamThinWoff2 from './fonts/Shabnam-Thin.woff2';
 import ShabnamThinWoff from './fonts/Shabnam-Thin.woff';
 import ShabnamThinTtf from './fonts/Shabnam-Thin.ttf';
+import { backgroundColor } from '../theme';
 
 export default createGlobalStyle `
   @font-face {
@@ -79,5 +80,8 @@ export default createGlobalStyle `
     -webkit-tap-highlight-color: transparent;
     direction: rtl;
     font-family: Shabnam, 'Shabnam', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  body {
+    background-color: ${backgroundColor};
   }
 `;
