@@ -25,6 +25,7 @@
 // const { screen } = window;
 
 export const size = {
+  mobileMin: 320,
   mobileMax: 480,
   phabletMin: 481,
   phabletMax: 768,

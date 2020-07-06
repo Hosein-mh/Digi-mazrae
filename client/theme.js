@@ -16,12 +16,35 @@ const textColor = theme("theme", {
 });
 
 const modalBorderColor = theme("theme", {
-  light: "rgba(0,0,0,0.05)",
-  dark: "rgba(255,255,255,0.05)"
+  light: "#000",
+  dark: "#fff"
+})
+const modalErrorBorder = theme("theme", {
+  light: "#D92027",
+  dark: "#FF000A"
+})
+const modalBackground = theme("theme", {
+  light:" #F7F5DD",
+  dark: "#222831"
+})
+
+const digiText = theme("theme", {
+  light: "#D92027",
+  dark: "#FF000A"
+})
+
+const mazText = theme("theme", {
+  light: "#204051",
+  dark: "#fff"
+})
+
+const leafColor = theme("theme", {
+  light: "#184D47",
+  dark: "#2EB872"
 })
 
 const AppbarBg =theme("theme", {
-  light: "#fff",
+  light: "#F7F5DD",
   dark: "#2C3E50"
 }) 
 const AppbarFg = theme("theme", {
@@ -42,6 +65,11 @@ export {
   textColor,
   navbarTextColor,
   modalBorderColor,
+  modalBackground,
+  modalErrorBorder,
+  digiText,
+  mazText,
+  leafColor,
   dimensions,
   AppbarBg,
   AppbarFg

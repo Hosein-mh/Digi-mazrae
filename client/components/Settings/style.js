@@ -52,7 +52,6 @@ const SettingModal = styled.section`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  box-shadow: 2px 1px 2px 2px ${modalBorderColor};
   background-color: ${AppbarBg};
   z-index: 20;
 `;

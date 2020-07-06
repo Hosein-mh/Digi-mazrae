@@ -41,6 +41,12 @@ const LinksContainer = styled.div`
   align-items: center;
 `;
 
+const FloatLeft = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 
 
 export {
@@ -48,4 +54,5 @@ export {
   Navbar,
   LinksContainer,
   Logo,
+  FloatLeft,
 }
