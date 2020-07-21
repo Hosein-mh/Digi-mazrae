@@ -1,5 +1,5 @@
 import { createStore, applyMiddleware } from 'redux';
-import rootReducer from './reducers';
+import rootReducer from '../reducers';
 
 const preloadedState = window.__PRELOADED_STATE__;
 

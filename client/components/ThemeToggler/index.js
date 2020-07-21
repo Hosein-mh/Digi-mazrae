@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Input, Label } from './style';
-import { toggleTheme } from '../../redux/actions';
+import { toggleTheme } from '../../redux/actions/theme';
 
 export default function ThemeToggler() {
   const [dark, setDark] = useState(false);

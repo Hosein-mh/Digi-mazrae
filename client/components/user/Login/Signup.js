@@ -13,7 +13,6 @@ import {
   DirectSignup,
   Error,
 } from './style';
-import SigninWithOtp from './SigninWithOtp';
 import Input from './Input';
 import Loader from '../../Loader';
 import { create } from '../api-user';
@@ -73,7 +72,7 @@ export default function Signup(props) {
         <ModalDarkBehind onClick={props.modalHandler} />
         <ModalCard className={props.openModal ? 'active' : ''} >
           {
-            !values.success, !values.loading &&
+            !values.success && !values.loading &&
             <ModalInputs>
               <CloseButton onClick={props.modalHandler}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="25.657" height="25.657" viewBox="0 0 25.657 25.657">
@@ -119,13 +118,12 @@ export default function Signup(props) {
                 validation={simpleValidator.current.message('password', values.password, 'min:6')}
               />
               <LoginButton onClick={handleSubmit} disabled={!simpleValidator.current.allValid()}>ایجاد</LoginButton>
-              <SigninWithOtp />
               <Error>{values.error}</Error>
               <DirectSignup onClick={() => props.switcher('signin')}>از قبل حساب کاربری دارید؟/signin</DirectSignup>
             </ModalInputs>
           }
           {
-            values.loading && !values.success && <Loader loading={false} completed={true} />}
+            values.loading && !values.success && <Loader loading={true} completed={false} />}
           {
              values.success && !values.loading && <Loader loading={false} completed={true} message="اکانت با موفقیت ایجاد شد" />
           }

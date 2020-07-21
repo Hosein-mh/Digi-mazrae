@@ -9,7 +9,7 @@ import Settings from '../../components/Settings';
 import Login from '../../components/user/Login';
 
 export default function Menu() {
-  const darkThemeEnabled = useSelector(state => state.theme.isDarkTheme)
+  const darkThemeEnabled = useSelector(state => state.theme.isDarkTheme);
 
   return (
     <AppBar>

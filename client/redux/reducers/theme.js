@@ -1,4 +1,5 @@
 import { TOGGLETHEME } from '../actionTypes';
+import { toggleTheme } from '../actions/theme';
 
 const initialState = { isDarkTheme: false };
 

@@ -2,6 +2,7 @@ import express from 'express'
 import path from 'path'
 import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
+import passport from './passport'
 import compress from 'compression'
 import cors from 'cors'
 import helmet from 'helmet'
@@ -42,11 +43,16 @@ app.use(helmet())
 // enable CORS - Cross Origin Resource Sharing
 app.use(cors())
 
+// passport configs
+app.use(passport.initialize());
+// app.use(passport.session());
+
 app.use('/dist', express.static(path.join(CURRENT_WORKING_DIR, 'dist')))
 
 // mount routes
 app.use('/', userRoutes);
 app.use('/', authRoutes);
+
 
 app.get('*', (req, res) => {
   const sheet = new ServerStyleSheet();

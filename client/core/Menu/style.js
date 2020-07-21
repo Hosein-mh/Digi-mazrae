@@ -3,7 +3,7 @@ import { AppbarBg, AppbarFg } from '../../theme';
 import customMediQuery from '../../style/custom-query';
 
 const AppBar = styled.header`
-  position: fixed;
+  position: sticky;
   display:flex;
   align-items: center;
   justify-content: center;

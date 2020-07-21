@@ -1,5 +1,8 @@
 import mongoose from 'mongoose';
 import crypto from 'crypto';
+
+import findOrCreate from 'mongoose-findorcreate';
+
 const UserSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -28,6 +31,8 @@ const UserSchema = new mongoose.Schema({
     default: false,
   }
 });
+
+UserSchema.plugin(findOrCreate);
 
 UserSchema
   .virtual('password')

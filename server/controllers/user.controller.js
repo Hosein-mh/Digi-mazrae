@@ -3,19 +3,21 @@ import extend from 'lodash/extend';
 import errorHandler from './../helpers/dbErrorHandler';
 import config from './../../config/config';
 import dbErrorHandler from './../helpers/dbErrorHandler';
+import passport from '../passport';
 
-const create = async (req, res) => {
-  const user = new User(req.body);
-  try {
-    await user.save();
-    return res.status(200).json({
-      message: "اکانت با موفقیت ایجاد شد!"
-    });
-  } catch (err) {
-    return res.status(400).json({
-      error: errorHandler.getErrorMessage(err)
-    });
-  }
+const create = (req, res, next) => {
+  passport.authenticate('local-signup', (error, user, info) => {
+    if (error) {
+      return res.status(400).json({
+        error
+      });
+    };
+
+    if (user)
+      return res.status(200).json({
+        message: "اکانت با موفقیت ایجاد شد! لطفا signin کنید"
+      })
+  })(req, res, next);
 }
 
 // Load user and append to req.

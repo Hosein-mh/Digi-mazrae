@@ -15,7 +15,9 @@ import {
 } from './style';
 import Input from './Input';
 import CloseModal from './CloseModal';
-import SigninWithOtp from './SigninWithOtp';
+import { signin } from '../../auth/api-auth';
+import auth from '../../auth/auth-helper';
+import Loader from '../../Loader';
 
 export default function Signin(props) {
   const simpleValidator = useRef(new SimpleReactValidator({
@@ -29,15 +31,15 @@ export default function Signin(props) {
   const [values, setValues] = useState({
     email: '',
     password: '',
-    error: {
-      email: false,
-      password: false
-    }
+    loading: false,
+    success: false,
+    error: ''
   });
 
   useEffect(() => {
     simpleValidator.current.purgeFields();
   }, [values.email, values.password]);
+  
 
   const handleInputChange = (name) => (e) => {
     let isFieldValid = simpleValidator.current.fieldValid(name);
@@ -45,24 +47,34 @@ export default function Signin(props) {
       setValues({
         ...values,
         [name]: e.target.value,
-        error: {
-          ...values.error,
-          [name]: true
-        }
       })
     } else {
       setValues({
         ...values,
         [name]: e.target.value,
-        error: {
-          ...values.error,
-          [name]: false
-        }
       })
     }
   }
-  const handleSubmit = () => {
-    console.log(values);
+  const localSubmit = () => {
+    setValues({ ...values, loading: true, success: false });
+
+    const user = {
+      email: values.email || undefined,
+      password: values.password || undefined
+    }
+
+    signin(user).then(data => {
+      if (data.error) {
+        setValues({ ...values, error: data.error, loading: false, success: false });
+      } else {
+        auth.authenticate(data, () => {
+          setValues({ ...values, error: '', loading: false, success: true });
+          setTimeout(() => {
+            props.modalHandler();
+          }, 1000);
+        })
+      }
+    })
   }
 
   simpleValidator.current.purgeFields();
@@ -71,35 +83,46 @@ export default function Signin(props) {
     <Modal open={props.openModal}>
         <ModalDarkBehind onClick={props.modalHandler} />
         <ModalCard className={props.openModal ? 'active' : ''} >
-          <ModalInputs>
-            <CloseModal closeHandler={props.modalHandler} />
-            <DigiIcon>
-              <MazText>
-                ورود به دیجی مزرعه
-              </MazText>
-            </DigiIcon>
-            <Input
-              id="email"
-              type="text" required
-              value={values.email}
-              onChange={handleInputChange('email')}
-              onBlur={simpleValidator.current.showMessageFor('email')}
-              holder="آدرس ایمیل"
-              validation={simpleValidator.current.message('email', values.email, 'email')}
+          {
+            !values.success && !values.loading &&
+            <ModalInputs>
+              <CloseModal closeHandler={props.modalHandler} />
+              <DigiIcon>
+                <MazText>
+                  ورود به دیجی مزرعه
+                </MazText>
+              </DigiIcon>
+              <Input
+                id="email"
+                type="text" required
+                value={values.email}
+                onChange={handleInputChange('email')}
+                onBlur={simpleValidator.current.showMessageFor('email')}
+                holder="آدرس ایمیل"
+                validation={simpleValidator.current.message('email', values.email, 'email')}
+                />
+              <Input 
+                id="password"
+                type="password" required
+                onChange={handleInputChange('password')}
+                onBlur={simpleValidator.current.showMessageFor('password')}
+                holder="رمز عبور"
+                validation={simpleValidator.current.message('password', values.password, 'min:6')}
               />
-            <Input 
-              id="password"
-              type="password" required
-              onChange={handleInputChange('password')}
-              onBlur={simpleValidator.current.showMessageFor('password')}
-              holder="رمز عبور"
-              validation={simpleValidator.current.message('password', values.password, 'min:6')}
-            />
-            <LoginButton disabled={!simpleValidator.current.allValid()}>ورود</LoginButton>
-            <GoogleButton>ورود سریع با گوگل</GoogleButton>
-            <SigninWithOtp />
-            <DirectSignup onClick={() => props.switcher('signup')}>ایجاد حساب کاربری / signup</DirectSignup>
-          </ModalInputs>
+              <LoginButton
+                disabled={!simpleValidator.current.allValid()}
+                onClick={localSubmit}
+              >ورود</LoginButton>
+              <GoogleButton>ورود سریع با گوگل</GoogleButton>
+              <Error>{values.error}</Error>
+              <DirectSignup onClick={() => props.switcher('signup')}>ایجاد حساب کاربری / signup</DirectSignup>
+            </ModalInputs>
+          }
+          {
+            values.loading && !values.success && <Loader loading={true} completed={false} />}
+          {
+             values.success && !values.loading && <Loader loading={false} completed={true} message="با موفقیت وارد شدید" />
+          }
         </ModalCard>
       </Modal>
   )
@@ -108,5 +131,5 @@ export default function Signin(props) {
 Signin.propTypes = {
   switcher: PropTypes.func,
   openModal: PropTypes.bool,
-  modalHandler: PropTypes.func
+  modalHandler: PropTypes.func.isRequired
 }

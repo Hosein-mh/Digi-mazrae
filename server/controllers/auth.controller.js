@@ -1,40 +1,21 @@
-import User from '../models/user.model';
-import jwt from 'jsonwebtoken';
 import expressJwt from 'express-jwt';
 import config from './../../config/config';
+import passport from '../passport';
 
-const signin = async (req, res) => {
-  try {
-    let user = await User.findOne({
-      "email": req.body.email
-    });
-    if (!user) 
-      return res.status('401').json({
-        error: 'کاربر یافت نشد'
-      });
-    if (!user.authenticate(req.body.password)) {
-      return res.status('401').send({
-        error: 'ایمیل یا پسورد وارده اشتباه است'
-      });
-    };
+const signin = (req, res, next) => {
 
-    const token = jwt.sign({
-      _id: user._id
-    }, config.jwtSecret);
+  passport.authenticate('local-signin', (error, user, token) => {
+    if (error)
+      return res.status(401).json({error});
 
-    res.cookie('t', token, {
-      expires: new Date() + 9999
-    });
+    if (user && token) {
+      // res.cookie('t', token, {
+      //   expires: new Date() + 9999
+      // });
+      return res.status(200).json(user)
+    }
+  })(req, res, next);
 
-    return res.json({
-      token,
-      user: {_id: user._id, name: user.name, email: user.email, admin: user.admin}
-    })
-  } catch (error) {
-    return res.status('401').json({
-      error: 'مشکلی در عملیات ورود'
-    })
-  }
 }
 
 const signout = (req, res) => {
