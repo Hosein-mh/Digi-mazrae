@@ -12,6 +12,9 @@ router.route('/api/users/:userId')
   .get(authCtrl.requireSignin, userCtrl.read)
   .put(authCtrl.requireSignin, authCtrl.hasAuthorization, userCtrl.update);
 
+router.route('/api/userbytoken/')
+  .post(userCtrl.userByToken);
+
 router.param('userId', userCtrl.userById);
 
 export default router;

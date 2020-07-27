@@ -15,7 +15,7 @@ import {
 } from './style';
 import Input from './Input';
 import Loader from '../../Loader';
-import { create } from '../api-user';
+import { requestUserCreate } from '../../../utils/api-helpers/user';
 import PropTypes from 'prop-types';
 
 export default function Signup(props) {
@@ -52,9 +52,9 @@ export default function Signup(props) {
         password: values.password || undefined
       }
       setValues({...values, loading: true});
-      create(user).then(data => {
-        if (data.error) {
-          setValues({ ...values, error: data.error, success: false, loading: false });
+      requestUserCreate(user).then(data => {
+        if (!data.ok && data.data.error) {
+          setValues({ ...values, error: data.data.error, success: false, loading: false });
         } else {
           setValues({ ...values, error: '', success: true, loading: false});
             setTimeout(() => {
@@ -64,6 +64,15 @@ export default function Signup(props) {
         };
       });
     } 
+  }
+
+  let disableLoginButton = () => {
+    return (
+      !simpleValidator.current.allValid() ||
+      values.name.length === 0 ||
+      values.email.length === 0 ||
+      values.password.length === 0
+    ) ? true : false;
   }
 
   return (
@@ -117,7 +126,7 @@ export default function Signup(props) {
                 onBlur={simpleValidator.current.showMessageFor('password')}
                 validation={simpleValidator.current.message('password', values.password, 'min:6')}
               />
-              <LoginButton onClick={handleSubmit} disabled={!simpleValidator.current.allValid()}>ایجاد</LoginButton>
+              <LoginButton onClick={handleSubmit} disabled={disableLoginButton()}>ایجاد</LoginButton>
               <Error>{values.error}</Error>
               <DirectSignup onClick={() => props.switcher('signin')}>از قبل حساب کاربری دارید؟/signin</DirectSignup>
             </ModalInputs>

@@ -17,7 +17,14 @@ router.route('/auth/google/callback')
   .get(passport.authenticate('google', {
     failureRedirect: '/signin'
   }), (req, res) => {
+    const token = req.user.token;
+    res.cookie('g_t', token);
     res.redirect('/');
   });
+
+// router.route('/auth/google')
+//   .get(authCtrl.requestGoogleSignin);
+// router.route('/auth/google/callback')
+//   .get(authCtrl.verifyGoogleSignin);
 
 export default router;

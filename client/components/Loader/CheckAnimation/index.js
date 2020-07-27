@@ -2,7 +2,7 @@ import React from 'react'
 import { SuccessCheckmark, Message, Container, ActionButton } from './style';
 import PropTypes from 'prop-types';
 
-export default function index({completed, message}) {
+export default function index({completed, message, afterSucceedTrigger}) {
   return (
     <SuccessCheckmark completed={completed}>
       <Container>
@@ -13,7 +13,7 @@ export default function index({completed, message}) {
           <div className="icon-fix"></div>
         </div>
         <Message>{message}</Message>
-        <ActionButton>ورود</ActionButton>
+        <ActionButton onClick={afterSucceedTrigger}>باشه</ActionButton>
       </Container>
     </SuccessCheckmark>
   )

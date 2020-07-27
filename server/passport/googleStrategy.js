@@ -13,7 +13,12 @@ export default new GoogleStrategy({
   (accessToken, refreshToken, profile, done) => {
     User.findOne({ email : profile.emails[0].value } , (err , user) => {
       if(err) return done(err);
-      if(user) return done(null , user);
+      if(user) {
+        user.generateToken((err, userWithToken) => {
+          user = userWithToken;
+        })
+        return done(null , user)
+      };
 
       const newUser = new User({
           name : profile.displayName,
@@ -21,10 +26,9 @@ export default new GoogleStrategy({
           password : profile.id
       });
 
-      newUser.save(err => {
-          if(err) throw err;
-          done(null , newUser);
-      })
+      newUser.generateToken((err, userWithToken) => {
+        return done(null, userWithToken);
+      });
 
   })
   }

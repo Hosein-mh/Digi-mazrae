@@ -6,3 +6,7 @@ export const Root = styled.div`
   align-items: center;
   justify-content: center;
 `;
+
+export const Message = styled.section`
+  color: #204051;
+`;

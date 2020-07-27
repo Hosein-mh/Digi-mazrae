@@ -14,7 +14,7 @@ const MainRouter = () => {
       <Switch>
         <Route path="/signin" component={() => <Login fired={true} />} />
         <Route exact path="/" component={Home}/>
-        <Route path="/gooz">
+        <Route path="*">
           <NotFounf />
         </Route>
       </Switch>

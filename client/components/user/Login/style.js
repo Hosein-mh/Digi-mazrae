@@ -196,6 +196,9 @@ export const LoginButton = styled(Button)`
 `;
 
 export const GoogleButton = styled(Button)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: ${digiText};
 `;
 export const LoginPhoneButton = styled(Button)`

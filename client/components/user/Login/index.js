@@ -1,20 +1,33 @@
 import React, { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux';
 import Signin from './Signin';
 import Signup from './Signup';
 import { Root, Trigger } from './style';
 import auth from '../../auth/auth-helper';
+import { useCookies } from 'react-cookie';
+import { dispatchUserInfoByToken } from '../../../utils/api-helpers/user';
 
 export default function Login({ fired }) {
   const [withModal, setwithModal] = useState('signin');
   const [openModal, setOpenModal] = useState(fired);
 
-  let jwt;
+  const userState = useSelector(state => state.user);
+  const dispatch = useDispatch();
+
+  const [cookies, setCookie, removeCookie] = useCookies(['g_t']);
 
   useEffect(() => {
-    jwt = auth.isAuthenticated();
-  }, [auth.isAuthenticated()]);
+    const token = {
+      googleToken: cookies.g_t,
+    };
+    if (token.googleToken) {
+      dispatchUserInfoByToken(dispatch, token);
+    }
+    removeCookie('g_t');
+  }, [cookies.g_t]);
 
-  useEffect(() => {}, [jwt]);
+  useEffect(() => {
+  }, [userState]);
 
   const modalOpenHandler = () => {
     setOpenModal(!openModal);
@@ -27,17 +40,17 @@ export default function Login({ fired }) {
     switchView(name);
   }
   const handleLogout = () => {
-    auth.clearJWT(() => {});
+    auth.clearJWT(() => {}, dispatch);
   }
 
   return (
     <Root>
     <Trigger onClick={() => {
-      !auth.isAuthenticated() ?
+      !(userState.data && userState.data.token) ?
       modalOpenHandler() :
       handleLogout();
       }}>
-      {auth.isAuthenticated() ? 'خروج' : 'ورود | ثبت نام'}
+      {(userState.data && userState.data.token) ? 'خروج' : 'ورود | ثبت نام'}
     </Trigger>
       {
         withModal && withModal == 'signin' && <Signin switcher={handleSwich} openModal={openModal} modalHandler={modalOpenHandler} />

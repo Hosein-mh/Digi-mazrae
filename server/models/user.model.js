@@ -1,5 +1,7 @@
 import mongoose from 'mongoose';
 import crypto from 'crypto';
+import jwt from 'jsonwebtoken';
+import config from '../../config/config';
 
 import findOrCreate from 'mongoose-findorcreate';
 
@@ -14,7 +16,8 @@ const UserSchema = new mongoose.Schema({
     trim: true,
     unique: "این ایمیل قبلا در سایت ثبت نام کرده",
     match: [/.+\@.+\..+/,'ایمیل معتبر نیست'],
-    required: 'وارد کردن ایمیل الزامیست'
+    required: 'وارد کردن ایمیل الزامیست',
+    lowercase: true,
   },
   hashed_password: {
     type: String,
@@ -29,7 +32,10 @@ const UserSchema = new mongoose.Schema({
   admin: {
     type: Boolean,
     default: false,
-  }
+  },
+  token: {
+    type: String,
+  },
 });
 
 UserSchema.plugin(findOrCreate);
@@ -54,6 +60,8 @@ UserSchema.path('hashed_password').validate(function (v) {
   }
 }, null);
 
+// UserSchema.index('token', { expireAfterSeconds: 20 });
+
 UserSchema.methods = {
   authenticate: function(plainText) {
     return this.encryptPassword(plainText) === this.hashed_password;
@@ -72,6 +80,16 @@ UserSchema.methods = {
   makeSalt: function() {
     return Math.round((new Date().valueOf() * Math.random())) + '';
   },
+  generateToken: function(cb) {
+    let user = this;
+    let token = jwt.sign({ _id: user._id }, config.jwtSecret);
+    user.token = token;
+    user.save((err, user) => {
+      if (err)
+        return cb(err);
+      return cb (null, user);
+    })
+  }
 }
 
 export default mongoose.model('User', UserSchema);

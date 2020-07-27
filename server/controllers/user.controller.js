@@ -35,7 +35,19 @@ const userById = async (req, res, next, id) => {
     return res.status('400').json({
       error: 'اطلاعات کاربر برگشت داده نشد'
     });
-  }
+  };
+};
+
+const userByToken = async (req, res) => {
+  const { googleToken } = req.body;
+  const user = await User.findOne({ 'token' : googleToken }).select('name email token');
+  if (!user)
+    return res.status(401).json({
+      error: 'توکن وارد شده معتبر نیست',
+    });
+  return res.status(200).json({
+    ...user.toJSON(),
+  });
 }
 
 const list = async (req, res) => {
@@ -93,6 +105,7 @@ const isAdmin = async (req, res, next) => {
 export default {
   create, 
   userById,
+  userByToken,
   read,
   list,
   update,

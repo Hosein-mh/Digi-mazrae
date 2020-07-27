@@ -11,19 +11,14 @@ const signinStrategy = new PassportLocal.Strategy({
     let user = await User.findOne({
       email
     });
-    if (!user) 
-      return done('کاربر یافت نشد');
+    if (!user || !user.authenticate(password)) 
+      return done('ایمیل یا پسورد وارد شده اشتباه است');
 
-    if (!user.authenticate(password))
-      return done('ایمیل یا پسورد وارده اشتباه است');
-
-    const token = jwt.sign({
-      _id: user._id
-    }, config.jwtSecret);
-
-    return done(null, {
-      _id: user._id, name: user.name, email: user.email, admin: user.admin
-    }, token)
+    await user.generateToken((genTokenError, userWithToken) => {
+      if (genTokenError)
+        return done(genTokenError);
+      return done(null, userWithToken);
+    });
   } catch (error) {
     console.log(error)
     return done('مشکلی در عملیات ورود');

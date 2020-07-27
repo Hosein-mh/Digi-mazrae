@@ -1,6 +1,10 @@
 import { combineReducers } from 'redux';
 import ThemeReducer from './theme';
+import user from './user';
 
-export default combineReducers({
-    theme: ThemeReducer,
-})
+const rootReducer =
+	combineReducers({
+		theme: ThemeReducer,
+		user,
+	});
+export default rootReducer;

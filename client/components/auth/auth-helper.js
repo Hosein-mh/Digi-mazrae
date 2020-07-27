@@ -1,4 +1,5 @@
-import { signout } from './api-auth';
+// import { signout } from './api-auth';
+import { requestUserLogout } from '../../utils/api-helpers/user';
 
 const auth = {
   isAuthenticated() {
@@ -16,12 +17,12 @@ const auth = {
       sessionStorage.setItem('jwt', JSON.stringify(jwt));
     cb();
   },
-  clearJWT (cb) {
+  clearJWT (cb, dispatch) {
     if (typeof window !== "undefined")
       sessionStorage.removeItem('jwt');
     cb();
     // Optional
-    signout().then(data => {
+    requestUserLogout(dispatch).then(data => {
       document.cookie = "t=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
     })
   },
