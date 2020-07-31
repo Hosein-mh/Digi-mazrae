@@ -173,6 +173,7 @@ export const Container = styled.div`
 export const ActionButton = styled.button`
 	border: none;
 	width: 100%;
+    max-width: 300px;
 	height: 50px;
 	background-color: #4CAF50;
 	color: #fff;

@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import Signin from './Signin';
 import Signup from './Signup';
 import { Root, Trigger } from './style';
-import auth from '../../auth/auth-helper';
 import { useCookies } from 'react-cookie';
-import { dispatchUserInfoByToken } from '../../../utils/api-helpers/user';
+import { dispatchUserInfoByToken, requestUserLogout } from '../../../utils/api-helpers/user';
 
 export default function Login({ fired }) {
+  let history = useHistory();
   const [withModal, setwithModal] = useState('signin');
   const [openModal, setOpenModal] = useState(fired);
 
@@ -40,7 +41,8 @@ export default function Login({ fired }) {
     switchView(name);
   }
   const handleLogout = () => {
-    auth.clearJWT(() => {}, dispatch);
+    requestUserLogout(dispatch);
+    history.push('/');
   }
 
   return (

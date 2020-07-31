@@ -9,6 +9,8 @@ const config = {
     '/digimazrae',
   GOOGLE_CONSUMER_KEY: '447176721787-p1rtlub6us6tm79evsf9lsmriul68afj.apps.googleusercontent.com',
   GOOGLE_CONSUMER_SECRET: 'Q8w2wBmkEddVpErYjmQsOnWZ',
+  LOGIN_EMAIL: 'homoh817@gmail.com',
+  LOGIN_PASSWORD: '6571838816a',
 }
 
 export default config

@@ -2,6 +2,7 @@ import express from 'express'
 import path from 'path'
 import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
+import dotenv from 'dotenv'
 import passport from './passport'
 import compress from 'compression'
 import cors from 'cors'
@@ -9,6 +10,10 @@ import helmet from 'helmet'
 import Template from './../template'
 import userRoutes from './routes/user.routes';
 import authRoutes from './routes/auth.routes';
+import emailRoutes from './routes/email.routes';
+
+//enable dotenv
+dotenv.config();
 
 // modules for server side rendering
 import React from 'react'
@@ -58,7 +63,7 @@ app.use('/dist', express.static(path.join(CURRENT_WORKING_DIR, 'dist')))
 // mount routes
 app.use('/', userRoutes);
 app.use('/', authRoutes);
-
+app.use('/', emailRoutes);
 
 app.get('*', (req, res) => {
   const sheet = new ServerStyleSheet();

@@ -14,11 +14,12 @@ import {
   Error,
   ModalInputs
 } from './style';
-import Input from './Input';
+import Input from '../../Input';
 import CloseModal from './CloseModal';
 import { dispatchUserInfo, requestUserLoginGoogle } from '../../../utils/api-helpers/user';
 import auth from '../../auth/auth-helper';
 import Loader from '../../Loader';
+import { Link} from 'react-router-dom';
 
 function Signin(props) {
   const simpleValidator = useRef(new SimpleReactValidator({
@@ -88,9 +89,6 @@ function Signin(props) {
     }, dispatch);
   }
 
-  const handleGoogleSignin = async () => {
-  }
-
   return (
     <Modal open={props.openModal}>
         <ModalDarkBehind onClick={props.modalHandler} />
@@ -129,6 +127,9 @@ function Signin(props) {
                 as='a'
                 href='/auth/google/'
               >ورود سریع با گوگل</GoogleButton>
+              <Link to="/password/forgot"
+                onClick={props.modalHandler}
+              >بازیابی رمز عبور</Link>
               <DirectSignup onClick={() => props.switcher('signup')}>ایجاد حساب کاربری / signup</DirectSignup>
               <Error>{error && data.message}</Error>
             </ModalInputs>

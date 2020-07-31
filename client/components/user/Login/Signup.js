@@ -13,7 +13,7 @@ import {
   DirectSignup,
   Error,
 } from './style';
-import Input from './Input';
+import Input from '../../Input';
 import Loader from '../../Loader';
 import { requestUserCreate } from '../../../utils/api-helpers/user';
 import PropTypes from 'prop-types';

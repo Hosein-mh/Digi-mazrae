@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { modalBorderColor ,navbarTextColor, textColor } from '../../../../theme';
-import customMedia from '../../../../style/custom-query';
+import { modalBorderColor ,navbarTextColor, textColor } from '../../theme';
+import customMedia from '../../style/custom-query';
 
 export const FieldInput = styled.div`
 position: relative;

@@ -42,7 +42,6 @@ const verifyGoogleSignin = (req, res, next) => {
         error: 'پاسخ درستی از گوگل دریافت نشد.'
       })
     }
-    user.admin = false;
     user.salt = undefined;
     user.hashed_password = undefined;
 

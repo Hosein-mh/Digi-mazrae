@@ -40,7 +40,7 @@ const userById = async (req, res, next, id) => {
 
 const userByToken = async (req, res) => {
   const { googleToken } = req.body;
-  const user = await User.findOne({ 'token' : googleToken }).select('name email token');
+  const user = await User.findOne({ 'token' : googleToken }).select('name email token admin');
   if (!user)
     return res.status(401).json({
       error: 'توکن وارد شده معتبر نیست',
