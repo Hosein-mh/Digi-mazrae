@@ -1,0 +1,25 @@
+import React from 'react'
+
+export default function Categories() {
+  return (
+    <svg id="categoriesIcon" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 55 55">
+      <g id="Rectangle_7" data-name="Rectangle 7" fill="#5ee5d7" stroke="#000" stroke-width="2">
+        <rect width="25" height="25" rx="3" stroke="none"/>
+        <rect x="1" y="1" width="23" height="23" rx="2" fill="none"/>
+      </g>
+      <g id="Rectangle_8" data-name="Rectangle 8" transform="translate(30)" fill="#ec7777" stroke="#000" stroke-width="2">
+        <rect width="25" height="25" rx="3" stroke="none"/>
+        <rect x="1" y="1" width="23" height="23" rx="2" fill="none"/>
+      </g>
+      <g id="Rectangle_10" data-name="Rectangle 10" transform="translate(0 30)" fill="#67ff80" stroke="#000" stroke-width="2">
+        <rect width="25" height="25" rx="3" stroke="none"/>
+        <rect x="1" y="1" width="23" height="23" rx="2" fill="none"/>
+      </g>
+      <g id="Ellipse_9" data-name="Ellipse 9" transform="translate(30 30)" fill="none" stroke="#000" stroke-width="2">
+        <circle cx="9.5" cy="9.5" r="9.5" stroke="none"/>
+        <circle cx="9.5" cy="9.5" r="8.5" fill="none"/>
+      </g>
+      <line id="Line_1" data-name="Line 1" x2="6" y2="6" transform="translate(45.5 46.5)" fill="none" stroke="#000" stroke-width="2"/>
+    </svg>
+  )
+}
