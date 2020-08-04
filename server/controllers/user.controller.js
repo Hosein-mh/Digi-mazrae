@@ -29,6 +29,8 @@ const userById = async (req, res, next, id) => {
         error: "کاربری با این مشخصات یافت نشد"
       });
     }
+    user.salt = undefined;
+    user.hashed_password = undefined;
     req.profile = user;
     next();
   } catch (err) {

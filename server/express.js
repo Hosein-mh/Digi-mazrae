@@ -8,9 +8,11 @@ import compress from 'compression'
 import cors from 'cors'
 import helmet from 'helmet'
 import Template from './../template'
+// Import Routes
 import userRoutes from './routes/user.routes';
 import authRoutes from './routes/auth.routes';
 import emailRoutes from './routes/email.routes';
+import categoryRoutes from './routes/category.routes';
 
 //enable dotenv
 dotenv.config();
@@ -63,6 +65,7 @@ app.use('/dist', express.static(path.join(CURRENT_WORKING_DIR, 'dist')))
 // mount routes
 app.use('/', userRoutes);
 app.use('/', authRoutes);
+app.use('/', categoryRoutes);
 app.use('/', emailRoutes);
 
 app.get('*', (req, res) => {

@@ -17,12 +17,12 @@ const auth = {
       sessionStorage.setItem('jwt', JSON.stringify(jwt));
     cb();
   },
-  clearJWT (cb, dispatch) {
+  clearJWT (cb, dispatch, userId) {
     if (typeof window !== "undefined")
       sessionStorage.removeItem('jwt');
     cb();
     // Optional
-    requestUserLogout(dispatch).then(data => {
+    requestUserLogout(dispatch, userId).then(data => {
       document.cookie = "t=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
     })
   },

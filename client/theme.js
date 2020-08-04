@@ -2,7 +2,12 @@ import theme from 'styled-theming';
 
 const backgroundColor = theme("theme", {
   light: "#fff",
-  dark: "#2d2d2d"
+  dark: "#161f28"
+});
+
+const submitColor = theme("theme", {
+  light: "#2ecc71",
+  dark: "#27ae60",
 });
 
 const navbarTextColor = theme("theme", {
@@ -63,6 +68,7 @@ const dimensions = {
 export {
   backgroundColor,
   textColor,
+  submitColor,
   navbarTextColor,
   modalBorderColor,
   modalBackground,

@@ -41,7 +41,7 @@ export default function Login({ fired }) {
     switchView(name);
   }
   const handleLogout = () => {
-    requestUserLogout(dispatch);
+    requestUserLogout(dispatch, userState.data._id);
     history.push('/');
   }
 

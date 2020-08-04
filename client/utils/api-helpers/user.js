@@ -38,8 +38,8 @@ export const requestUserLogin = async userInfo => {
   };
 };
 
-export const requestUserLogout = async (dispatch) => {
-  const url = '/auth/signout/';
+export const requestUserLogout = async (dispatch, userId) => {
+  const url = '/auth/signout/' + userId;
   const config = {
     method: 'GET',
   };
@@ -106,7 +106,6 @@ export const dispatchUserInfoByToken = async (dispatch, token) => {
   dispatch(dispatchUserLoginLoadingAction());
   try {
     const isUserLogedin = await fetchHelper(fetch, url, config);
-    console.log('isUserLogedin', isUserLogedin)
     if (isUserLogedin.status === 500) {
       dispatch(
         dispatchUserLoginErrorAction('مشکلی پیش آمده لطفا بعدا تلاش نمایید.'),

@@ -1,6 +1,7 @@
 import expressJwt from 'express-jwt';
 import config from './../../config/config';
 import passport from '../passport';
+import User from '../models/user.model';
 
 let respUser = {};
 const signin = (req, res, next) => {
@@ -51,8 +52,19 @@ const verifyGoogleSignin = (req, res, next) => {
   })(req, res, next);
 }
 
-const signout = (req, res) => {
+const signout = async (req, res) => {
   res.clearCookie('t');
+  const { userId } = req.params;
+
+  let user = await User.findById(userId);
+  if (! user) 
+    return res.status(400).json({
+      error: 'اطلاعات کاربر برای خروج اشتباه است',
+    });
+
+  user.token = '';
+  await user.save();
+
   return res.status('200').json({
     message: 'با موفقیت خارج شدید'
   })
@@ -73,11 +85,22 @@ const hasAuthorization = (req, res, next) => {
   next();
 }
 
+const hasAdminRole = (req, res, next) => {
+  const authorized = req.profile && req.profile.admin == true;
+  if (!authorized) {
+    return res.status('403').json({
+      error: 'شما اجازه ی دسترسی به این درخواست را ندارید'
+    });
+  };
+  next();
+}
+
 export default {
   signin,
   signout,
   requireSignin,
   hasAuthorization,
+  hasAdminRole,
   requestGoogleSignin,
   verifyGoogleSignin,
 }

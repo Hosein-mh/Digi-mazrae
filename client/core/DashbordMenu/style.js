@@ -13,6 +13,7 @@ export const Root = styled.div`
   width: 100px;
   padding: 1rem;
   height: 100%;
+  z-index: 200;
   a {
     color:${navbarTextColor}
   }

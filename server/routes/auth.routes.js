@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.route('/auth/signin')
   .post(authCtrl.signin);
-router.route('/auth/signout')
+router.route('/auth/signout/:userId')
   .get(authCtrl.signout);
 
 router.route('/auth/google')
