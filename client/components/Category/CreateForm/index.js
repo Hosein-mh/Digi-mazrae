@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Root, Title, Form, Error, FileInput, SubmitButton } from './style';
+import { Root, Title, Form, Error, FileInput, SubmitButton, Container } from './style';
 import Input from '../../Input';
 import SimpleReactValidator from 'simple-react-validator';
 import CameraIcon from '../../icons/Camera.icon';
 import { useSelector } from 'react-redux';
 import Loader from '../../Loader';
+import { useHistory } from 'react-router';
 
 export default function index() {
   const simpleValidator = useRef(new SimpleReactValidator({
@@ -24,6 +25,7 @@ export default function index() {
     succeed: false,
     error: '',
   }
+  const history = useHistory();
 
   const [values, setValues] = useState(initialState);
 
@@ -78,10 +80,10 @@ export default function index() {
     } else {
       setValues({ ...values, loading: false, succeed: false, error: 'شما اجازه دسترسی به این درخواست را ندارید'});
     }
-    console.log('values is:', values)
   }
 
   return (
+    <Container>
     <Root>
       <Title>ایجاد دسته بندی جدید</Title>
       <Form onSubmit={handleSubmit}>
@@ -133,9 +135,10 @@ export default function index() {
          <Loader loading={false} completed={true} error={values.error.length > 0}
           succeedMessage = { 'دسته بندی جدید با موفقیت ایجاد شد' }
           failureMessage = { values.error }
-          afterSucceedTrigger = {() => setValues(initialState)}
+          afterSucceedTrigger = {() => history.push('/dashbord/categories')}
         />
       }
     </Root>
+    </Container>
   )
 }

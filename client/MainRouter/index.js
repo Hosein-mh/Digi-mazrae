@@ -7,9 +7,10 @@ import GlobalStyle from '../style/GlobalStyle';
 import globalRoutes from './globalRoutes';
 import passwordRoutes from './passwordRoutes';
 import dashbordRoutes from './dashbordRoutes';
+import { Container } from './style';
 
 const MainRouter = () => {
-  return (<div>
+  return (<Container>
       <GlobalStyle />
       <Switch>
         <Route path="/password" component={ passwordRoutes } />
@@ -19,7 +20,7 @@ const MainRouter = () => {
           <NotFounf />
         </Route>
       </Switch>
-    </div>)
+    </Container>)
 }
 
 export default MainRouter

@@ -3,7 +3,7 @@ import { AppbarBg, navbarTextColor, mazText } from '../../theme';
 import customMedia from '../../style/custom-query';
 
 export const Root = styled.div`
-  position: absolute;
+  position: fixed;
   right: 0;
   display: flex;
   flex-direction: column;

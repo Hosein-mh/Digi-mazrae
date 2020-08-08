@@ -20,7 +20,25 @@ export const multerMiddleware = (req, res, next) => {
     };
     next();
   });
+};
+
+export const categoryById = async (req, res, next, id) => {
+  try {
+    let category = await Category.findById(id);
+    if (!category) {
+      return res.status(401).json({
+        error: 'کتگوری با این مشخصات یافت نشد!'
+      })
+    }
+    req.category = category;
+    next();
+  } catch (error) {
+    return res.status(400).json({
+      error: 'مشکل دریافت اطلاعات کتگوری'
+    })
+  }
 }
+
 const create = async (req, res) => {
   // get photo path to store in database:
   let photoPath;
@@ -57,6 +75,44 @@ const create = async (req, res) => {
   }
 };
 
+const list = async (req, res)  => {
+  const { page } = req.query;
+  const query = {};
+  const options = {
+    page,
+    sort: { created: -1 },
+    limit: 5,
+  }
+  try {
+    let result = await Category.paginate(query, options);
+    return res.status(200).json({
+      data: result
+    })
+  } catch (e) {
+    return resp.status(400).json({
+      error: dbErrorHandler.getErrorMessage(e),
+    });
+  }
+}
+
+export const deleteCategory = async (req, res) => {
+  try {
+    const { category } = req;
+    let resp = await category.delete();
+    return res.status(200).json({
+      message: `کتگوری ${resp.name} با موفقیت پاک شد`,
+    })
+  } catch (error) {
+    return res.status(400).json({
+      error,
+    });
+  }
+};
+
+
 export default {
+  categoryById,
   create,
+  list,
+  deleteCategory,
 }

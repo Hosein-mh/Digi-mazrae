@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { textColor, modalErrorBorder, modalBorderColor, submitColor } from '../../../theme';
+import { textColor, modalErrorBorder, modalBorderColor, submitColor, modalBackground } from '../../../theme';
 import customMedia from '../../../style/custom-query';
 
 export const Error = styled.div`
@@ -12,6 +12,17 @@ export const Error = styled.div`
   }
 `;
 
+export const Container = styled.div `
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @media ${customMedia.aboveSmallestTablet} {
+    width: calc(100% - 100px);
+    float: left;
+  }
+`;
 
 export const Root = styled.div `
   width: 100%;
@@ -22,6 +33,12 @@ export const Root = styled.div `
   align-items: center;
   min-height: 150px;
   padding: 1rem;
+  background-color: ${modalBackground};
+  box-shadow: 0px 0px 3px ${modalBorderColor};
+  border-radius: 5px;
+  @media ${customMedia.aboveSmallestPhablet} {
+    max-widtH: 600px;
+  }
 `;
 
 export const Title = styled.section `
