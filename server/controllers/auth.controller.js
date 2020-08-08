@@ -70,10 +70,28 @@ const signout = async (req, res) => {
   })
 };
 
-const requireSignin = expressJwt({
-  secret: config.jwtSecret,
-  userProperty: 'auth'
-})
+// const requireSignin = expressJwt({
+//   secret: config.jwtSecret,
+//   userProperty: 'auth'
+// })
+const requireSignin = async (req, res, next) => {
+  try {
+    const {_id: userId, token} = req.profile;
+    const user = await User.findById(userId);
+
+    if (token &&  token == user.token) {
+      next();
+    } else {
+      return res.status(401).json({
+        error: 'Access denied permission!',
+      });
+    }
+  } catch (e) {
+    return res.status(401).jons({
+      error: e.message,
+    });
+  };
+}
 
 const hasAuthorization = (req, res, next) => {
   const authorized = req.profile && req.auth && req.profile._id == req.auth._id;
