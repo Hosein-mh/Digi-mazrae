@@ -61,6 +61,7 @@ app.use(passport.initialize());
 // app.use(passport.session());
 
 app.use('/dist', express.static(path.join(CURRENT_WORKING_DIR, 'dist')))
+app.use('/public', express.static(path.join(CURRENT_WORKING_DIR, 'public')));
 
 // mount routes
 app.use('/', userRoutes);

@@ -46,6 +46,10 @@
     "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^21.0.0",
+    "@ckeditor/ckeditor5-dev-utils": "^23.1.1",
+    "@ckeditor/ckeditor5-react": "^2.1.0",
+    "@ckeditor/ckeditor5-theme-lark": "^21.0.0",
     "@emotion/core": "^10.0.28",
     "@hot-loader/react-dom": "^16.13.0",
     "@loadable/component": "^5.12.0",
@@ -77,6 +81,7 @@
     "react-cookie": "^4.0.3",
     "react-dom": "^16.13.1",
     "react-hot-loader": "^4.12.21",
+    "react-loadable": "^5.5.0",
     "react-redux": "^7.2.0",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",

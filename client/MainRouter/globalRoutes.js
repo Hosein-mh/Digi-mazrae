@@ -2,6 +2,7 @@ import React, { Fragment } from 'react'
 import Home from '../core/Home';
 import Menu from '../core/Menu';
 import Login from '../components/user/Login';
+import NotFounf from '../components/NotFound';
 import { Switch, Route } from 'react-router-dom';
 
 export default function globalRoutes() {
@@ -9,8 +10,11 @@ export default function globalRoutes() {
     <Fragment>
       <Menu/>
       <Switch>
-        <Route exact path="/" component={Home}/>
         <Route path="/signin" component={() => <Login fired={true} />} />
+        <Route exact path="/" component={Home}/>
+        <Route path="/*">
+          <NotFounf />
+        </Route>
       </Switch>
     </Fragment>
   )

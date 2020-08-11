@@ -10,8 +10,11 @@ router.route('/api/categories/:userId')
 
 router.route('/api/categories/')
   .get(categoryCtrl.list);
+router.route('/api/categories/:categoryId')
+  .get(categoryCtrl.read);
 
 router.route('/api/categories/:userId/:categoryId')
+  .put(authCtrl.requireSignin, authCtrl.hasAdminRole, multerMiddleware, categoryCtrl.updateCategory)
   .delete(authCtrl.requireSignin, authCtrl.hasAdminRole, categoryCtrl.deleteCategory);
   
 

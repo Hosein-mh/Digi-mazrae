@@ -17,6 +17,7 @@ import TrashModal from '../../Modal/TrashModal';
 import TableNavigator from '../../Table/TableNavigator';
 import { useHistory } from 'react-router';
 import EditIcon from '../../icons/EditIcon';
+import { Link } from 'react-router-dom';
 
 export default function index() {
   const [values, setValues] = useState({
@@ -113,7 +114,9 @@ export default function index() {
                     <TrashModal 
                       removeTrigger={handleCategoryRemove(category._id)}
                     />
-                    <EditIcon />
+                    <Link to={`/dashbord/categories/edit/${category._id}`} >
+                      <EditIcon />
+                    </Link>
                   </ActionGroup>
                 </TableDoc>
               </TableRow>

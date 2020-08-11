@@ -9,11 +9,35 @@ export const listCategoriesByPage = async (signal, page) => {
   return await fetchHelper(fetch, url, config);
 };
 
+export const getCategory = async (userId, categoryId) => {
+  const url = `/api/categories/${categoryId}`;
+  const config = {
+    method: 'GET',
+  };
+  try {
+    return await fetchHelper(fetch, url, config);
+  } catch (error) {
+    console.log(error);
+  };
+};
+
 export const removeCategory = async (userId, categoryId) => {
-  const url = `/api/categories/${userId}/${categoryId}`
+  const url = `/api/categories/${userId}/${categoryId}`;
   const config = {
     method: 'DELETE',
   };
+  try {
+    return await fetchHelper(fetch, url, config);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const updateCategory = async (userId, categoryId) => {
+  const url = `/api/categories/${userId}/${categoryId}`;
+  const config = {
+    method: 'PUT',
+  }
   try {
     return await fetchHelper(fetch, url, config);
   } catch (error) {

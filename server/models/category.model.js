@@ -14,7 +14,7 @@ const CategorySchema = new mongoose.Schema({
     ref: 'User',
     required: true,
   },
-  UpdatedBy: {
+  updatedBy: {
     type: mongoose.Schema.ObjectId,
     ref: 'User',
   },

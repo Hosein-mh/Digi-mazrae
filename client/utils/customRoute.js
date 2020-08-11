@@ -32,7 +32,6 @@ const CustomRoute = props => {
 
 const mapStateToProps = state => ({
   isLoggedIn: state.user.succeed,
-  user: state.user.data || { admin: false },
 });
 
 export default connect(
