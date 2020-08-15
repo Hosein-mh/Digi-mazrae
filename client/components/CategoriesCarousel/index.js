@@ -1,47 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Root,
 } from './style';
 import Carousel from '../Carousel';
+import { listAllCategories } from '../../utils/api-helpers/category';
 
 function CategoriesCarousel() {
   //must be deleted after api and alternate with fetch
-  const [categories, setCategories] = useState([
-    {
-      id: 0,
-      name: 'انواع گردو',
-      index: 0,
-      picture: '../../assets/images/walnuts.jpg'
-    },
-    {
-      id: 1,
-      name: 'انواع بادام',
-      index: 1,
-      picture: '../../assets/images/walnuts.jpg'
-    },
-    {
-      id: 2,
-      name: 'انواع سبزی',
-      index: 2,
-      picture: '../../assets/images/walnuts.jpg'
-    },
-    {
-      id: 3,
-      name: 'انواع لواشک',
-      index: 3,
-      picture: '../../assets/images/لواشک1.jpg'
-    },
-    {
-      id: 4,
-      name: 'انواع کشمش',
-      index: 4,
-      picture: '../../assets/images/walnuts.jpg'
-    }
-  ])
+  const [categories, setCategories] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      let resp = await listAllCategories();
+      if (resp.ok && resp.status == 200 && resp.data) {
+        const { docs } = resp.data.data;
+        setCategories(docs);
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
     <Root id="cagegories_root">
-      <Carousel items={categories} />
+      <Carousel categories={categories} />
     </Root>
   )
 }

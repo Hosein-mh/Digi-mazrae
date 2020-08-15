@@ -53,9 +53,6 @@ const Title = styled.h1`
   @media ${customMedia.belowLargestMobile} {
     font-size: 1.3rem;
   }
-  @media ${customMedia.aboveSmallestDesktop} {
-    margin-top: 15.5rem;
-  }
 `;
 
 const SubTitle = styled.h2`

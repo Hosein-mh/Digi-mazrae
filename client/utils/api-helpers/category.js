@@ -9,6 +9,14 @@ export const listCategoriesByPage = async (signal, page) => {
   return await fetchHelper(fetch, url, config);
 };
 
+export const listAllCategories = async () => {
+  const url = '/api/categories/';
+  const config = {
+    method: 'GET',
+  };
+  return await fetchHelper(fetch, url, config);
+};
+
 export const getCategory = async (userId, categoryId) => {
   const url = `/api/categories/${categoryId}`;
   const config = {

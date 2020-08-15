@@ -7,21 +7,17 @@ const Root = styled.section`
   height: 200px;
   position: relative;
   cursor: pointer;
-  margin-left: 10px;
-  background-image: ${props => `url(${BackgroundImage})`};
+  margin: 0 5px;
+  border-radius: .5rem;
+  background-image: ${props => props.imageSrc ? `url(${props.imageSrc})` : `url(${BackgroundImage})`};
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 
   @media ${customMedia.aboveSmallestDesktop} {
-    width: 300px;
-    height: 300px;
+    width: 250px;
+    height: 250px;
   }
-`;
-
-const Cover = styled.img`
-  width: 100%;
-  height: 100%;
 `;
 
 const Title = styled.h5`
@@ -36,10 +32,10 @@ const Title = styled.h5`
     color: #fff;
     font-size: 1.5rem;
     font-weight: normal;
+    border-radius: 0 0 0.5rem 0.5rem;
 `;
 
 export {
   Root,
-  Cover,
   Title,
 }
