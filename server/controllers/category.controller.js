@@ -1,26 +1,7 @@
 import Category from '../models/category.model';
 import fs from 'fs';
 import dbErrorHandler from '../helpers/dbErrorHandler';
-import { getUpload } from '../helpers/multer';
-import multer from 'multer';
 
-export const multerMiddleware = (req, res, next) => {
-  const upload = getUpload('categories').single('photo');
-  upload(req, res, function (err) {
-    if (err instanceof multer.MulterError) {
-      // A Multer error occurred when uploading.
-      return res.status(403).json({
-        error: err.message,
-      })
-    } else if (err) {
-      // An unknown error occurred when uploading.
-      return res.status(402).json({
-        error: err,
-      });
-    };
-    next();
-  });
-};
 
 export const categoryById = async (req, res, next, id) => {
   try {

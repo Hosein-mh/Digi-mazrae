@@ -13,6 +13,7 @@ import userRoutes from './routes/user.routes';
 import authRoutes from './routes/auth.routes';
 import emailRoutes from './routes/email.routes';
 import categoryRoutes from './routes/category.routes';
+import productRoutes from './routes/product.routes';
 
 //enable dotenv
 dotenv.config();
@@ -67,6 +68,7 @@ app.use('/public', express.static(path.join(CURRENT_WORKING_DIR, 'public')));
 app.use('/', userRoutes);
 app.use('/', authRoutes);
 app.use('/', categoryRoutes);
+app.use('/', productRoutes);
 app.use('/', emailRoutes);
 
 app.get('*', (req, res) => {

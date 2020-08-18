@@ -1,9 +1,11 @@
 import multer from 'multer';
 
 const getMulterStorage = fieldName => {
+  const fileStorePath = `public/img/${fieldName}`
+
   return multer.diskStorage({
     destination: (req, file, cb) => {
-      cb(null, `public/img/${fieldName}`);
+      cb(null, fileStorePath);
     },
     filename: (req, file, cb) => {
       const ext = file.mimetype.split('/')[1];

@@ -1,12 +1,10 @@
 import mongoose from 'mongoose';
-import crypto from 'crypto';
-import jwt from 'jsonwebtoken';
 
 import findOrCreate from 'mongoose-findorcreate';
 
 const ResetPassSchema = new mongoose.Schema({
   userId: {
-    type:  mongoose.Schema.ObjectId,
+    type:  mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true,
   },
