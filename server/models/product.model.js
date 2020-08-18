@@ -13,7 +13,7 @@ const ProductSchema = mongoose.Schema({
     required: 'قیمت محصول وارد نشده'
   },
   tank: {
-    type: String,
+    type: Number,
     required: 'وارد کردن موجودی انبار الزامیست.'
   },
   photo: String,

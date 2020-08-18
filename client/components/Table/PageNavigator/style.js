@@ -1,5 +1,7 @@
 import styled from 'styled-components';
-import { textColor } from '../../../theme'
+import { textColor } from '../../../theme';
+import customMedia from "../../../style/custom-query";
+
 
 export const Root = styled.section `
   display: flex;
@@ -13,6 +15,12 @@ export const Root = styled.section `
   }
   && path {
     stroke: ${textColor};
+  }
+
+  @media ${customMedia.belowLargestPhablet} {
+    position: fixed;
+    right: 0;
+    bottom: 100px;
   }
 `;
 

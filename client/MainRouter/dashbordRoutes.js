@@ -7,6 +7,8 @@ import CategoriesList from '../components/Category/List';
 import CategoryCreate from '../components/Category/CreateForm';
 import CategoryEdit from '../components/Category/EditForm';
 import ProductCreate from '../components/Product/CreateForm';
+import ProductList from '../components/Product/List';
+import ProductEdit from '../components/Product/EditForm';
 
 export default function dashbordRoutes() {
   const user = useSelector(state => state.user.data);
@@ -26,6 +28,8 @@ export default function dashbordRoutes() {
         <Route path="/dashbord/categories" component={CategoriesList} />
         {/* products Routes */}
         <Route exact path="/dashbord/products/create" component={ProductCreate} />
+        <Route exact path="/dashbord/products" component={ProductList} />
+        <Route exact path="/dashbord/products/edit/:productId" component={ProductEdit} />
 
         <Route exact path="/dashbord" render={() => 'dashbord'} />
       </Switch>

@@ -51,7 +51,6 @@ const create = async (req, res) => {
   let photoPath;
   if (req.file) {
     photoPath = getPhotoPath(req.file);
-    console.log('phot path is:', photoPath);
   } else {
     photoPath = 'public/img/defaults/product.jpg';
   };
@@ -93,12 +92,12 @@ const list = async (req, res)  => {
     limit: 5,
   }
   try {
-    let result = await Category.paginate(query, options);
+    let result = await Product.paginate(query, options);
     return res.status(200).json({
       data: result
     })
   } catch (e) {
-    return resp.status(400).json({
+    return res.status(400).json({
       error: dbErrorHandler.getErrorMessage(e),
     });
   }
@@ -107,7 +106,7 @@ const list = async (req, res)  => {
 export const read = async (req, res) => {
   if (req.product) {
     return res.status(200).json({
-      category: req.product,
+      product: req.product,
     });
   }
   return res.status(400).json({

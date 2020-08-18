@@ -14,7 +14,7 @@ import {
 } from './style';
 import { listCategoriesByPage, removeCategory } from '../../../utils/api-helpers/category';
 import TrashModal from '../../Modal/TrashModal';
-import TableNavigator from '../../Table/TableNavigator';
+import PageNavigator from '../../Table/PageNavigator';
 import { useHistory } from 'react-router';
 import EditIcon from '../../icons/EditIcon';
 import { Link } from 'react-router-dom';
@@ -124,7 +124,7 @@ export default function index() {
           })}
         </Tbody>
       </Table>
-      <TableNavigator
+      <PageNavigator
         nextPageTrigger={nextPage}
         prevPageTrigger={prevPage}
         page={values.page}
