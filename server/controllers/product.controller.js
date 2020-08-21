@@ -117,13 +117,7 @@ export const read = async (req, res) => {
 const updateProduct = async (req, res) => {
   const product = req.product;
   const { photo: pastPhotoPath } = product;
-  let photoPath;
-  if (req.file) {
-    photoPath = getPhotoPath(req.file);
-  } else {
-    photoPath = req.body.photo;
-  };
-
+  
   const { name, price, category, tank, description } = req.body;
   try {
     product.name = name;
@@ -131,15 +125,42 @@ const updateProduct = async (req, res) => {
     product.category = category;
     product.tank = tank;
     product.description = description;
-    product.photo = photoPath;
     product.updated = Date.now();
     product.updatedBy = req.profile._id;
 
     await product.save();
+
+    return res.status(200).json({
+      message: 'محصول با موفقیت آپدیت شد!'
+    })
+  } catch (error) {
+    res.status(500).json({
+      error: dbErrorHandler.getErrorMessage(error),
+    });
+  }
+}
+
+const updatePhoto = async (req, res) => {
+  const product = req.product;
+  const { photo: pastPhotoPath } = product;
+
+  let photoPath;
+  if (req.file) {
+    photoPath = getPhotoPath(req.file);
+  } else {
+    photoPath = req.body.photo;
+  };
+  try {
+    product.photo = photoPath;
+    product.updated = Date.now();
+    product.updatedBy = req.profile._id;
+
+    const updatedProduct = await product.save();
     fs.unlink(pastPhotoPath, (err) => {
     })
     return res.status(200).json({
-      message: 'محصول با موفقیت آپدیت شد!'
+      message: 'تصویر محصول با موفقیت آپدیت شد!',
+      data: updatedProduct.photo,
     })
   } catch (error) {
     if (req.file) {
@@ -149,9 +170,8 @@ const updateProduct = async (req, res) => {
     res.status(500).json({
       error: dbErrorHandler.getErrorMessage(e),
     });
-  }
-
-}
+  };
+};
 
 export const deleteProduct = async (req, res) => {
   try {
@@ -176,5 +196,6 @@ export default {
   list,
   read,
   updateProduct,
+  updatePhoto,
   deleteProduct,
 }

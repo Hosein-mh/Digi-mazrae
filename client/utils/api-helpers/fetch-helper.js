@@ -25,3 +25,25 @@ const fetchHelper = async (fetch, path, config) => {
 };
 
 export default fetchHelper;
+
+export const fetchWithFileHelpler = async (fetch, path, config) => {
+  let respData; 
+  const options = {
+    ...config,
+  };
+  const resp = await fetch(path, options);
+  let contentType;
+  if (resp.headers) {
+    contentType = resp.headers.get('content-type');
+  }
+  if (contentType && contentType.includes('application/json')) {
+    respData = await resp.json();
+  } else {
+    respData = { message: resp.text() };
+  }
+  return {
+    ok: resp.ok,
+    status: resp.status,
+    data: respData,
+  };
+};

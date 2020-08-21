@@ -18,9 +18,7 @@ export const Root = styled.section `
   }
 
   @media ${customMedia.belowLargestPhablet} {
-    position: fixed;
-    right: 0;
-    bottom: 100px;
+    margin-bottom: 100px;
   }
 `;
 

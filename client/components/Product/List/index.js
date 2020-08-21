@@ -50,7 +50,7 @@ export default function index() {
     return function cleanUp() {
       abortController.abort();
     }
-  }, [values.page, values.reload]);
+  }, [values.page, values.reload, values.products]);
 
   // PageNavigator triggers
   const nextPage = () => {
@@ -77,7 +77,7 @@ export default function index() {
           values.products.map(
             product => <Product 
                         product={product}
-                        key={product._id} 
+                        key={product._id}
                         />
           )
         }

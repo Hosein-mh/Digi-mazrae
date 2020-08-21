@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import SimpleReactValidator from 'simple-react-validator';
-import { listAllCategories } from '../../../utils/api-helpers/category';
+import { getProduct, updateProduct, updateProductPhoto } from '../../../utils/api-helpers/product';
 import { 
   Error,
   Root, 
@@ -10,20 +10,18 @@ import {
   Title,
   Row,
   RowChild,
-  CategorySelection,
-  SelectContainter,
   Label,
   FormInput,
   SubmitButton,
-  FileInput,
-  Option,
+  Photo,
 } from './style';
 import Input from '../../Input';
 import TextEditor from '../../TextEditor';
-import CameraIcon from '../../icons/Camera.icon';
+import PHotoUploader from '../../PhotoUploader';
 import Loader from '../../Loader';
+import CategorySelect from './CategorySelect';
 
-export default function CreateForm() {
+export default function EditForm({ match }) {
   const simpleValidator = useRef(new SimpleReactValidator({
     messages: {
       required: 'این فیلد نمی تواند خالی بماند.',
@@ -35,7 +33,6 @@ export default function CreateForm() {
     name: '',
     price: 0,
     tank: 0,
-    categories: [],
     category: '',
     description: '',
     photo: {
@@ -44,22 +41,38 @@ export default function CreateForm() {
     loading: false,
     succeed: false,
     error: '',
+    fetchLoaded: false,
   }
   const history = useHistory();
 
   const [values, setValues] = useState(initialState);
+  const [photoLoading, setPhotoLoading] = useState(false);
 
   const userState = useSelector(state => state.user);
 
-  const fetchCategories = async () => {
-    const apiResult = await listAllCategories();
-    if (apiResult.ok && apiResult.status == 200)
-      setValues({ ...values, categories: apiResult.data.data.docs})
+  const { productId } = match.params;
+
+  const fetchProduct = async () => {
+    const apiResult = await getProduct(productId);
+    if (apiResult.ok && apiResult.status == 200) {
+      const { name, price, category, photo, tank, description } = apiResult.data.product;
+      setValues({
+        ...values,
+        name,
+        price,
+        category,
+        photo,
+        tank,
+        description,
+        fetchLoaded: true,
+      });
+    };
+    return apiResult;
   };
 
   useEffect(() => {
-    fetchCategories();
-  }, []);
+    fetchProduct();
+  }, [productId]);
 
   const handleInputChange = (name) => e => {
     switch (name) {
@@ -77,33 +90,40 @@ export default function CreateForm() {
     setValues({ ...values, description: data });
   };
 
-  const handleSubmit = async () => {
-    let productData = new FormData();
+  const photoUplodeTrigger = async (e) => {
+    setPhotoLoading(true);
 
-    productData.append('name', values.name);
-    productData.append('description', values.description);
-    productData.append('photo', values.photo);
-    productData.append('price', values.price);
-    productData.append('tank', values.tank);
-    productData.append('category', values.category);
+    const { _id: userId } = userState.data;
+
+    let photoData = new FormData();
+    photoData.append('photo', e.target.files[0]);
+
+    const photoFetchResp = await updateProductPhoto(userId, productId, photoData);
+    console.log('resp from update photo is:', photoFetchResp);
+
+    if (photoFetchResp.ok && photoFetchResp.status == 200) {
+      setValues({ ...values, photo: photoFetchResp.data.data });
+      setPhotoLoading(false);
+    }
+  }
+
+  const handleSubmit = async () => {
+    let productData = {
+      name: values.name,
+      price: values.price,
+      category: values.category,
+      tank: values.tank,
+      description: values.description,
+    };
 
     // loading
     setValues({ ...values, loading: true, suceed: false, error: '', });
 
     const { _id: userId , admin } = userState.data;
     
-    // api-fetch category create:
-    const config = {
-      method: 'POST',
-      body: productData,
-    }
-    const url = `/api/products/${userId}`;
-
-    
     // just admin can fetch this data:
     if (userId && admin && values.category.length > 0) {
-      let resp = await fetch(url, { ...config });
-      let response = await resp.json();
+      let resp = await updateProduct(userId, productId, productData);
       
       if (resp.ok && resp.status == 200) {
         setValues({ ...values, loading: false, succeed: true, error: '' });
@@ -119,8 +139,8 @@ export default function CreateForm() {
       setValues({ ...values, loading: false, succeed: false, error: "لطفا یک کتگوری انتخاب کنید" });
     };
   };
-
   return (
+    (values.fetchLoaded) ? 
     <Container>
     <Root>
       <Title>محصول جدید</Title>
@@ -146,21 +166,10 @@ export default function CreateForm() {
       </Row>
       <Row>
         <RowChild>
-          <SelectContainter>
-            <CategorySelection 
-              name="category"
-              id="category-select"
-              onChange={handleInputChange('category')}
-              value={values.category}
-            >
-              <Option value="">انتخاب کتگوری</Option>
-            {
-              values.categories.map(
-                category => <Option key={category._id} value={category._id}>{category.name}</Option>
-              )
-            }
-            </CategorySelection>
-          </SelectContainter>
+          <CategorySelect
+            productCategory={values.category}
+            inputChangeTrigger={handleInputChange}
+          />
         </RowChild>
         <RowChild>
           <Input
@@ -172,14 +181,16 @@ export default function CreateForm() {
         </RowChild>
       </Row>
       <Row>
-        <FormInput>
-          <Label htmlFor="product-description">توضیحات محصول</Label>
-          <TextEditor 
-            id='product-description'
-            data={values.description}
-            onChange={handleTextEditorChange}
-          />
-        </FormInput>
+        <RowChild>
+          <FormInput>
+            <Label htmlFor="product-description">توضیحات محصول</Label>
+            <TextEditor 
+              id='product-description'
+              data={values.description}
+              onChange={handleTextEditorChange}
+            />
+          </FormInput>
+        </RowChild>
       </Row>
       {
         values.error.length > 0 &&
@@ -189,15 +200,23 @@ export default function CreateForm() {
       }
       <Row>
         <RowChild>
-          <input type="file"onChange={handleInputChange('uploadFile')} id="file_upload" style={{display: 'none'}} />
-          <FileInput htmlFor="file_upload" style={{marginLeft: 10}}>
-            <span style={{marginLeft: 10}}>
-              {values.photo.name || "بارگذاری تصویر"}
-            </span>
-            <CameraIcon/>
-          </FileInput>
-          <SubmitButton onClick={handleSubmit}>دخیره</SubmitButton>
+          <FormInput>
+            <Label>تصویر اصلی</Label>
+            <Photo>
+              {
+                photoLoading ? 
+                <Loader loading={photoLoading} /> :
+                <PHotoUploader
+                  photoSrc={values.photo}
+                  changeTrigger={photoUplodeTrigger}
+                /> 
+              }
+            </Photo>
+          </FormInput>
         </RowChild>
+      </Row>
+      <Row>
+        <SubmitButton onClick={handleSubmit}>دخیره</SubmitButton>
       </Row>
       {
          values.loading &&
@@ -209,12 +228,13 @@ export default function CreateForm() {
       {
          values.succeed &&
          <Loader loading={false} completed={true} error={values.error.length > 0}
-          succeedMessage = { 'محصول جدید با موفقیت اضافه شد' }
+          succeedMessage = { 'محصول با موفقیت ویرایش شد' }
           failureMessage = { values.error }
           afterSucceedTrigger = {() => history.push('/dashbord/products')}
         />
       }
     </Root>
-    </Container>
+    </Container> : 
+    <Loader loading={!values.fetchLoaded} />
   );
 }

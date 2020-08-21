@@ -52,9 +52,10 @@ export default function CreateForm() {
   const userState = useSelector(state => state.user);
 
   const fetchCategories = async () => {
+    setValues({ ...values, loading: true });
     const apiResult = await listAllCategories();
     if (apiResult.ok && apiResult.status == 200)
-      setValues({ ...values, categories: apiResult.data.data.docs})
+      setValues({ ...values, categories: apiResult.data.data.docs, loading: false });
   };
 
   useEffect(() => {
@@ -188,7 +189,7 @@ export default function CreateForm() {
         </Row>
       }
       <Row>
-        <RowChild>
+        <RowChild className="lastRow">
           <input type="file"onChange={handleInputChange('uploadFile')} id="file_upload" style={{display: 'none'}} />
           <FileInput htmlFor="file_upload" style={{marginLeft: 10}}>
             <span style={{marginLeft: 10}}>

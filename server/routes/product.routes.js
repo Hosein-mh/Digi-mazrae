@@ -15,9 +15,11 @@ router.route('/api/products/:productId')
   .get(productCtrl.read);
 
 router.route('/api/products/:userId/:productId')
-  .put(authCtrl.requireSignin, authCtrl.hasAdminRole, multerMiddleware('products'), productCtrl.updateProduct)
+  .put(authCtrl.requireSignin, authCtrl.hasAdminRole, productCtrl.updateProduct)
   .delete(authCtrl.requireSignin, authCtrl.hasAdminRole, productCtrl.deleteProduct);
-  
+
+router.route('/api/products/photo/:userId/:productId')
+  .put(authCtrl.requireSignin, authCtrl.hasAdminRole, multerMiddleware('products'), productCtrl.updatePhoto);
 
 router.param('userId', userCtrl.userById);
 router.param('productId', productCtrl.productById);

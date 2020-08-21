@@ -14,7 +14,7 @@ export const Error = styled.div`
 
 export const Container = styled.div `
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -31,12 +31,13 @@ export const Root = styled.div `
   justify-content: center;
   align-items: center;
   min-height: 150px;
-  padding: 1rem;
+  padding: 1rem 1rem 100px 1rem;
   background-color: ${modalBackground};
   box-shadow: 0px 0px 3px ${modalBorderColor};
   border-radius: 5px;
   @media ${customMedia.aboveSmallestPhablet} {
     max-widtH: 600px;
+    padding: 1rem;
   }
 
   /* CKEditor styles: */
@@ -198,5 +199,12 @@ export const FormInput = styled.div `
   width: 100%;
   display: flex;
   flex-direction: column;
+`;
+export const Photo = styled.div `
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+  height: 150px;
 `;
 

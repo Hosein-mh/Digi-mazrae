@@ -14,7 +14,6 @@ export const Error = styled.div`
 
 export const Container = styled.div `
   width: 100%;
-  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -35,6 +34,7 @@ export const Root = styled.div `
   background-color: ${modalBackground};
   box-shadow: 0px 0px 3px ${modalBorderColor};
   border-radius: 5px;
+  min-height: calc(100vh - 100px);
   @media ${customMedia.aboveSmallestPhablet} {
     max-widtH: 600px;
   }
@@ -136,6 +136,9 @@ export const RowChild = styled.div `
   display: flex;
   justify-content: center;
   align-items: center;
+  &.lastRow {
+    margin-bottom: 100px;
+  }
 `;
 
 export const FileInput = styled.label `

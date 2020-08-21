@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
@@ -14,8 +15,16 @@ import {
 } from './style';
 import TrashModal from '../../../Modal/TrashModal';
 import EditIcon from '../../../icons/EditIcon';
+import { removeProduct } from '../../../../utils/api-helpers/product';
 
 export default function index({ product }) {
+  const userState = useSelector(state => state.user);
+  const { _id: userId } = userState.data;
+
+  const handleDelete = async () => {
+    await removeProduct(userId, product._id);
+  }
+
   return (
     <Card>
       <Tank>{product.tank} کیلو</Tank>
@@ -27,7 +36,7 @@ export default function index({ product }) {
         <RateAndPriceBg />
       </RateAndPrice>
       <ActionGroup>
-        <TrashModal />
+        <TrashModal removeTrigger={handleDelete} />
         <Link to={`/dashbord/products/edit/${product._id}`} >
           <EditIcon />
         </Link>
@@ -37,9 +46,5 @@ export default function index({ product }) {
 };
 
 index.propTypes = {
-  product: {
-    name: PropTypes.string.isRequired,
-    photo: PropTypes.string.isRequired,
-    tank: PropTypes.number.isRequired,
-  },
+  product: PropTypes.object.isRequired,
 };
