@@ -18,8 +18,15 @@ router.route('/api/products/:userId/:productId')
   .put(authCtrl.requireSignin, authCtrl.hasAdminRole, productCtrl.updateProduct)
   .delete(authCtrl.requireSignin, authCtrl.hasAdminRole, productCtrl.deleteProduct);
 
+// Product photo and gallery routes:
 router.route('/api/products/photo/:userId/:productId')
   .put(authCtrl.requireSignin, authCtrl.hasAdminRole, multerMiddleware('products'), productCtrl.updatePhoto);
+router.route('/api/products/gallery/:productId')
+  .get(productCtrl.listGallery);
+router.route('/api/products/gallery/:userId/:productId')
+  .put(authCtrl.requireSignin, authCtrl.hasAdminRole, multerMiddleware('products/gallery'), productCtrl.updateGallery);
+router.route('/api/products/gallery/remove/:userId/:productId')
+  .put(authCtrl.requireSignin, authCtrl.hasAdminRole, productCtrl.deleteFromGallery)
 
 router.param('userId', userCtrl.userById);
 router.param('productId', productCtrl.productById);

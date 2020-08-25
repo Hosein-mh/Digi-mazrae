@@ -17,6 +17,7 @@ const ProductSchema = mongoose.Schema({
     required: 'وارد کردن موجودی انبار الزامیست.'
   },
   photo: String,
+  gallery: [ String ],
   category: { type: mongoose.Schema.Types.ObjectId, ref: 'Category', required: 'باید یک کتگوری انتخاب کنید' },
   createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   updatedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },

@@ -18,6 +18,7 @@ import {
 import Input from '../../Input';
 import TextEditor from '../../TextEditor';
 import PHotoUploader from '../../PhotoUploader';
+import PhotoGalleryEdit from './PhotoGalleryEdit';
 import Loader from '../../Loader';
 import CategorySelect from './CategorySelect';
 
@@ -99,7 +100,6 @@ export default function EditForm({ match }) {
     photoData.append('photo', e.target.files[0]);
 
     const photoFetchResp = await updateProductPhoto(userId, productId, photoData);
-    console.log('resp from update photo is:', photoFetchResp);
 
     if (photoFetchResp.ok && photoFetchResp.status == 200) {
       setValues({ ...values, photo: photoFetchResp.data.data });
@@ -200,18 +200,23 @@ export default function EditForm({ match }) {
       }
       <Row>
         <RowChild>
-          <FormInput>
+          <FormInput className="photoRow">
             <Label>تصویر اصلی</Label>
             <Photo>
               {
                 photoLoading ? 
                 <Loader loading={photoLoading} /> :
                 <PHotoUploader
+                  hidePlus
                   photoSrc={values.photo}
                   changeTrigger={photoUplodeTrigger}
                 /> 
               }
             </Photo>
+          </FormInput>
+          <FormInput>
+            <Label>گالری تصاویر</Label>
+            <PhotoGalleryEdit productId={productId} />
           </FormInput>
         </RowChild>
       </Row>

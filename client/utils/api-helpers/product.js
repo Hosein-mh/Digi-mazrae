@@ -67,3 +67,43 @@ export const updateProductPhoto = async (userId, productId, photo) => {
     console.log(error);
   };
 };
+
+export const getProductGallery = async (productId) => {
+  const url = `/api/products/gallery/${productId}`;
+  const config = {
+    method: 'GET',
+  };
+  try {
+    return await fetchHelper(fetch, url, config);
+  } catch (error) {
+    console.log(error);
+  };
+};
+
+export const updateProductGallery = async (userId, productId, photo) => {
+  const url = `/api/products/gallery/${userId}/${productId}`;
+  const config = {
+    method: 'PUT',
+    body: photo,
+  };
+  try {
+    return await fetchWithFileHelpler(fetch, url, config);
+  } catch (error) {
+    console.log(error);
+  };
+};
+
+export const deleteFromProductGallery = async (userId, productId, photo) => {
+  const url = `/api/products/gallery/remove/${userId}/${productId}`;
+  const config = {
+    method: 'PUT',
+    body: JSON.stringify({
+      photo
+    }),
+  };
+  try {
+    return await fetchHelper(fetch, url, config);
+  } catch (error) {
+    console.log(error);
+  };
+};

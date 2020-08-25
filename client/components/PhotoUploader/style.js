@@ -7,11 +7,19 @@ export const Root = styled.div `
   display: flex;
   align-items: center;
   justify-content: center;
+  /* margin-bottom: 2rem; */
+`;
+
+export const Contents = styled.div `
+  width: 100%;
+  height: 100%;
+  display: flex;
 `;
 
 export const Plus = styled.span `
   width: 100%;
   height: 100%;
+  min-height: 150px;
   font-size: 4rem;
   font-weight: 200;
   padding-top: 10px;
@@ -19,9 +27,12 @@ export const Plus = styled.span `
   justify-content: center;
   align-items: center;
   color: #fff;
-  background: ${modalBorderColor};
+  background: #EC7777;
   border-radius: 5px;
   cursor: pointer;
+  &&.hide {
+    display: none;
+  }
 `;
 
 export const Notif = styled.section `
@@ -47,7 +58,7 @@ export const Label = styled.label `
   &:hover, &:active {
     ${Notif} {
     transform: translateY(-50px);
-  }
+    }
   }
 `
 

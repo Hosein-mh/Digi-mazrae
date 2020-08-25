@@ -199,6 +199,9 @@ export const FormInput = styled.div `
   width: 100%;
   display: flex;
   flex-direction: column;
+  &.photoRow {
+    margin-bottom: 2rem;
+  }
 `;
 export const Photo = styled.div `
   display: flex;

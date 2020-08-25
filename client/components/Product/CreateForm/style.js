@@ -143,6 +143,8 @@ export const RowChild = styled.div `
 
 export const FileInput = styled.label `
   width: 100%;
+  max-width: 200px;
+  overflow: hidden;
   height: 50px;
   cursor: pointer;
   border: 1px solid ${modalBorderColor};

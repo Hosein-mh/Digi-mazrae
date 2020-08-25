@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from 'react';
+import uniqid from 'uniqid';
 import {
   Root,
   Plus,
@@ -9,25 +10,27 @@ import {
 import PropTypes from 'prop-types';
 
 export default function index({ photoSrc, changeTrigger }) {
-
+  const id = uniqid();
   useEffect(() => {
   }, [photoSrc])
 
   return (
-    <Root src={photoSrc}>
+    <Root>
       <input type='file'
         style={{display: "none"}}
         onChange={changeTrigger}
-        id="photoUploader"
+        id={id}
       />
-      {
-        photoSrc ?
-        <Label htmlFor="photoUploader">
-          <Img src={`/${photoSrc}`} htmlFor="photoUploader" />
-          <Notif>تغییر تصویر</Notif>
-        </Label> :
-        <Plus>+</Plus>
-      }
+        <Label htmlFor={id}>
+          {
+            photoSrc ? 
+            <>
+            <Img src={`/${photoSrc}`} />
+            <Notif>تغییر تصویر</Notif> 
+            </>:
+            <Plus>+</Plus>
+          }
+        </Label>
     </Root>
   );
 };

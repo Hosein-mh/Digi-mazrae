@@ -36,7 +36,7 @@ export default function index({ product }) {
         <RateAndPriceBg />
       </RateAndPrice>
       <ActionGroup>
-        <TrashModal removeTrigger={handleDelete} />
+        <TrashModal removeTrigger={handleDelete} itemName={product.name} />
         <Link to={`/dashbord/products/edit/${product._id}`} >
           <EditIcon />
         </Link>

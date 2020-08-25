@@ -173,6 +173,98 @@ const updatePhoto = async (req, res) => {
   };
 };
 
+const listGallery = async (req, res) => {
+  if (req.product) {
+    if (!req.product.gallery) {
+      return res.status(200).json({
+        gallery: [],
+      });
+    };
+    return res.status(200).json({
+      gallery: req.product.gallery,
+    });
+  } else {
+    return res.status(500).json({
+      error: 'پروداکت انتخابی برای گالری موجود نیست'
+    });
+  };
+};
+
+const updateGallery = async (req, res) => {
+  const product = req.product;
+  const { pastPhoto } = req.body;
+  const { gallery } = product;
+
+  let photoPath;
+  if (req.file) {
+    photoPath = getPhotoPath(req.file);
+  } 
+  if(!product) {
+    gallery = [];
+  }
+
+  try {
+    if (pastPhoto && photoPath) {
+      let pastPhotoIndex = gallery.indexOf(pastPhoto);
+      if (pastPhotoIndex != -1) {
+        gallery.splice(pastPhotoIndex, 1, photoPath)
+        product.updated = Date.now();
+        product.updatedBy = req.profile._id;
+        const updatedProduct = await product.save();
+        fs.unlink(pastPhoto, (err) => {
+        })
+        return res.status(200).json({
+          message: 'گالری محصول با موفقیت آپدیت شد!',
+          data: updatedProduct,
+        })
+      } else 
+        return res.status(401).json({
+          error: 'تصویر ارسالی قابل آپلود نیست'
+        });
+    } else {
+      photoPath && product.gallery.push(photoPath);
+      let updatedProductWithNewGallery = await product.save();
+      return res.status(200).json({
+        message: 'تصویر جدید به گالری اضافه شد',
+        data: updatedProductWithNewGallery,
+      });
+    };
+
+  } catch (error) {
+    if (req.file) {
+      fs.unlink(photoPath, (err) => {
+      });
+    }
+    res.status(500).json({
+      error: dbErrorHandler.getErrorMessage(e),
+    });
+  };
+};
+
+export const deleteFromGallery = async (req, res) => {
+  const {photo} = req.body;
+  const product = req.product;
+  
+  try {
+    let photoIndex = product.gallery.indexOf(photo);
+    if (photoIndex != -1) {
+      product.gallery.splice(photoIndex, 1);
+      const updatedProduct = await product.save();
+      fs.unlink(photo, (e) => {});
+
+      return res.status(200).json({
+        message: 'تصویر با موفقیت از گالری حذف شد.',
+        data: updatedProduct,
+      })
+    } else 
+      return res.status(401).json({
+        error: 'تصویر انتخابی در گالری وجود ندارد!',
+      });
+  } catch (error) {
+    error: dbErrorHandler.getErrorMessage(error);
+  };
+};
+
 export const deleteProduct = async (req, res) => {
   try {
     const { product } = req;
@@ -197,5 +289,8 @@ export default {
   read,
   updateProduct,
   updatePhoto,
+  listGallery,
+  updateGallery,
+  deleteFromGallery,
   deleteProduct,
 }
