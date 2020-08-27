@@ -6,7 +6,7 @@ const Root = styled.div`
   height: 100%;
 
   @media ${customMediaQuery.belowLargestMobile} {
-    width: ${size.mobileMax}px;
+    width: ${size.mobileMin}px;
   }
   @media ${customMediaQuery.aboveSmallestPhablet} {
     width: ${size.phabletMin}px;
@@ -14,9 +14,9 @@ const Root = styled.div`
   @media ${customMediaQuery.aboveSmallestTablet} {
     width: ${size.tabletMin}px;
   }
-  @media ${customMediaQuery.aboveSmallestTablet} {
+  /* @media ${customMediaQuery.belowLargestDesktop} {
     width: ${size.desktopMin}px;
-  }
+  } */
   @media ${customMediaQuery.aboveSmallestHd} {
     width: ${size.hdMin}px;
   }

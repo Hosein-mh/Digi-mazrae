@@ -17,7 +17,7 @@ export const listAllCategories = async () => {
   return await fetchHelper(fetch, url, config);
 };
 
-export const getCategory = async (userId, categoryId) => {
+export const getCategory = async (categoryId) => {
   const url = `/api/categories/${categoryId}`;
   const config = {
     method: 'GET',

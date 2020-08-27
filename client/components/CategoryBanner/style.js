@@ -20,6 +20,17 @@ const Root = styled.section`
   }
 `;
 
+export const Background = styled.img `
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-radius: .5rem;
+`;
+
 const Title = styled.h5`
     position: absolute;
     bottom: 0;

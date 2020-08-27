@@ -33,10 +33,11 @@ export default function index({ match }) {
   const [values, setValues] = useState(initialState);
 
   const userState = useSelector(state => state.user);
+  const { categoryId } = match.params;
 
   useEffect(() => {
     const fetchData = async () => {
-      let resp = await getCategory(userState.data._id, match.params.categoryId);
+      let resp = await getCategory(match.params.categoryId);
       if (resp && resp.ok && resp.status == 200) {
         const { category } = resp.data;
         const { _id, name, description, photo } = category;
