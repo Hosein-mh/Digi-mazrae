@@ -13,7 +13,7 @@ export const Row = styled.div `
   width: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   &&#firstRow{
     margin-top: 3rem;
   }

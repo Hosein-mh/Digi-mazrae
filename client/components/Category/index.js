@@ -4,6 +4,10 @@ import RootContainer from '../RootContainer';
 import CategoryHeader from './CategoryHeader';
 import { getCategory } from '../../utils/api-helpers/category';
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
+import DescriptionSection from './DescriptionSection';
+import CategorySelectSide from './CategorySelectionSide';
+import Instagram from '../Instagram';
+import ScrollToTop from '../ScrollToTop';
 
 export default function index({ match }) {
   const [category, setCategory] = useState({
@@ -24,21 +28,22 @@ export default function index({ match }) {
   }, [categoryId])
   return (
     <Root>
+      <Row id="firstRow">
+        <Instagram />
+        <CategoryHeader category={category} />
+        <CategorySelectSide />
+      </Row>
       <RootContainer>
-        <Row id="firstRow">
-          {/* <div>instagram posts</div> */}
-          <CategoryHeader category={category} />
-          {/* <div>categories</div> */}
-        </Row>
         <Switch>
           <Route exact path={path}>
             <h3>show the store of category</h3>
           </Route>
           <Route path={`${path}/description`}>
-            <h3>description</h3>
+            <DescriptionSection description={category.description} />
           </Route>
       </Switch>
       </RootContainer>
+      <ScrollToTop />
     </Root>
   )
 }

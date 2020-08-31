@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { digiText } from '../../../../theme';
-import customMedia from '../../../../style/custom-query';
 
 export const CloseButton = styled.button`
   position: absolute;

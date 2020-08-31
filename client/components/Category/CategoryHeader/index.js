@@ -13,8 +13,11 @@ import {
   ActionBorder,
   LeftPart,
   ShowMoreButton,
+  ShareGroup,
 } from './style';
 import Loader from '../../Loader';
+import CategoriesMenu from '../CategoriesMenu';
+import ShareButton from '../../ShareButton';
 
 export default function index({ category }) {
   const [loading, setLoading] = useState(false);
@@ -22,6 +25,7 @@ export default function index({ category }) {
   const { path, url } = useRouteMatch();
 
   useEffect(() => {
+    setisDescPage(false)
     if (!category) {
       setLoading(true);
     } else {
@@ -32,13 +36,17 @@ export default function index({ category }) {
   }, [category])
 
   return (
-    <Root>
+    <Root id="category_head">
       {
         loading ?
         <Loader loading={loading} /> :
         <>
           <CategoryCover src={"/" + category.photo} />
           <CoverMask />
+          <CategoriesMenu selectedCategory={category} />
+          <ShareGroup id="share-group">
+            <ShareButton />
+          </ShareGroup>
           <CategoryRoundImg className={'for-below-tablet'} src={"/" + category.photo} />
           <CategoryTitle>
             انواع {category.name}

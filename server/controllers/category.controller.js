@@ -58,11 +58,14 @@ const create = async (req, res) => {
 
 const list = async (req, res)  => {
   const { page } = req.query;
+  let limit = 5;
+  if (page == undefined ) 
+    limit = 30;
   const query = {};
   const options = {
     page,
     sort: { created: -1 },
-    limit: 5,
+    limit,
   }
   try {
     let result = await Category.paginate(query, options);

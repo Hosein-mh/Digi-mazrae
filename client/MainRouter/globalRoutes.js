@@ -18,6 +18,7 @@ export default function globalRoutes() {
           <NotFounf />
         </Route>
       </Switch>
+      <div style={{width: '100%', textAlign: 'center'}}>Footer</div>
     </Fragment>
   )
 }
