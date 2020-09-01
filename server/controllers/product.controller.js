@@ -84,12 +84,13 @@ const create = async (req, res) => {
 };
 
 const list = async (req, res)  => {
+  const { category } = req.body;
   const { page } = req.query;
-  const query = {};
+  const query = category ? { category: category } : {};
   const options = {
     page,
     sort: { created: -1 },
-    limit: 5,
+    limit: 10,
   }
   try {
     let result = await Product.paginate(query, options);
@@ -280,7 +281,6 @@ export const deleteProduct = async (req, res) => {
     });
   }
 };
-
 
 export default {
   productById,

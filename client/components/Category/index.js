@@ -8,6 +8,7 @@ import DescriptionSection from './DescriptionSection';
 import CategorySelectSide from './CategorySelectionSide';
 import Instagram from '../Instagram';
 import ScrollToTop from '../ScrollToTop';
+import ProductStore from '../Product/Store';
 
 export default function index({ match }) {
   const [category, setCategory] = useState({
@@ -36,7 +37,7 @@ export default function index({ match }) {
       <RootContainer>
         <Switch>
           <Route exact path={path}>
-            <h3>show the store of category</h3>
+            <ProductStore />
           </Route>
           <Route path={`${path}/description`}>
             <DescriptionSection description={category.description} />

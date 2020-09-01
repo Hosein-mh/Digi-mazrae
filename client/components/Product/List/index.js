@@ -50,7 +50,7 @@ export default function index() {
     return function cleanUp() {
       abortController.abort();
     }
-  }, [values.page, values.reload, values.products]);
+  }, [values.page]);
 
   // PageNavigator triggers
   const nextPage = () => {
