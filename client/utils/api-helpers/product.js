@@ -18,6 +18,15 @@ export const listAllProducts = async () => {
   return await fetchHelper(fetch, url, config);
 };
 
+export const listProductsByCategory = async(signal, cateogoryId) => {
+  const url = `/api/products/bycategory/${cateogoryId}`;
+  const config = {
+    method: 'GET',
+    signal,
+  };
+  return await fetchHelper(fetch, url, config);
+};
+
 export const getProduct = async (productId) => {
   const url = `/api/products/${productId}`;
   const config = {

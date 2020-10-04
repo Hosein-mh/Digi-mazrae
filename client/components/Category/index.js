@@ -37,7 +37,7 @@ export default function index({ match }) {
       <RootContainer>
         <Switch>
           <Route exact path={path}>
-            <ProductStore />
+            <ProductStore categoryId={categoryId} />
           </Route>
           <Route path={`${path}/description`}>
             <DescriptionSection description={category.description} />

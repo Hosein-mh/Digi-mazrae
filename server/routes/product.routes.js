@@ -13,6 +13,8 @@ router.route('/api/products/')
   .get(productCtrl.list);
 router.route('/api/products/:productId')
   .get(productCtrl.read);
+router.route('/api/products/bycategory/:categoryId')
+  .get(productCtrl.listByCategory);
 
 router.route('/api/products/:userId/:productId')
   .put(authCtrl.requireSignin, authCtrl.hasAdminRole, productCtrl.updateProduct)

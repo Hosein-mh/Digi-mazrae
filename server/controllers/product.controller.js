@@ -84,13 +84,12 @@ const create = async (req, res) => {
 };
 
 const list = async (req, res)  => {
-  const { category } = req.body;
   const { page } = req.query;
-  const query = category ? { category: category } : {};
+  const query = {};
   const options = {
     page,
     sort: { created: -1 },
-    limit: 10,
+    limit: 5,
   }
   try {
     let result = await Product.paginate(query, options);
@@ -282,6 +281,33 @@ export const deleteProduct = async (req, res) => {
   }
 };
 
+export const listByCategory = async (req, res) => {
+  const { categoryId } = req.params;
+  const { page } = req.query;
+  let query;
+  categoryId ?
+    query = {
+      category: categoryId,
+    } :
+    query = {};
+  const options = {
+    page,
+    sort: { created: -1 },
+    limit: 10,
+  }
+  try {
+    let result = await Product.paginate(query, options);
+    return res.status(200).json({
+      data: result
+    })
+  } catch (err) {
+    return res.status(400).json({
+      error: dbErrorHandler.getErrorMessage(err),
+    });
+  }
+};
+
+
 export default {
   productById,
   create,
@@ -293,4 +319,5 @@ export default {
   updateGallery,
   deleteFromGallery,
   deleteProduct,
+  listByCategory,
 }
