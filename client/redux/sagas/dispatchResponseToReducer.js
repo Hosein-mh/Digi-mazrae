@@ -1,7 +1,5 @@
 import { put, takeEvery } from 'redux-saga/effects';
-import fetchHelper from '../../utils/api-helpers/fetch-helper';
 import { DISPATCH_TO_REDUCER } from '../constants/global';
-import auth from '../../components/auth/auth-helper';
 
 function* DispatchResponseToReducer(payload) {
   const { types, customData } = payload.payload;

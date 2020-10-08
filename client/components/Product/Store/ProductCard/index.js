@@ -14,7 +14,6 @@ import {
 
 
 export default function ProductCard({ product }) {
-  console.log('product:', product);
   const [values, setValues] = useState({
     gallery: [],
   });
@@ -41,7 +40,7 @@ export default function ProductCard({ product }) {
       </ProductGallery>
       <ProductTitle>{product.name}</ProductTitle>
       <ProductPrice>{toFarsiNumber(product.price)} تومان</ProductPrice>
-      <AddToCartButton />
+      <AddToCartButton product={product} />
     </Root>
   )
 }
