@@ -1,7 +1,7 @@
 import { all } from 'redux-saga/effects';
-// import locationMiddleware from './LoacationMiddleware';
 import dispatchResponseToReducer from './dispatchResponseToReducer';
+import cart from './cart';
 
 export default function* rootSaga() {
-  yield all([/*locationMiddleware(),*/ dispatchResponseToReducer()]);
+  yield all([dispatchResponseToReducer(), cart]);
 }

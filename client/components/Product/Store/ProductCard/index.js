@@ -13,7 +13,7 @@ import {
 } from './style';
 
 
-export default function ProductCard({ product }) {
+export default function ProductCard({ product, cartAmount }) {
   const [values, setValues] = useState({
     gallery: [],
   });
@@ -39,8 +39,8 @@ export default function ProductCard({ product }) {
         </Carousel>
       </ProductGallery>
       <ProductTitle>{product.name}</ProductTitle>
-      <ProductPrice>{toFarsiNumber(product.price)} تومان</ProductPrice>
-      <AddToCartButton product={product} />
+      <ProductPrice>{/*toFarsiNumber(product.price)*/product.price} تومان</ProductPrice>
+      <AddToCartButton product={product} cartAmount={cartAmount} />
     </Root>
   )
 }

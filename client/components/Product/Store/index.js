@@ -1,9 +1,16 @@
 import React, { useState, useEffect} from 'react';
 import { Root } from './style';
 import ProductCard from './ProductCard';
+import { useSelector } from 'react-redux';
 import { listProductsByCategory } from '../../../utils/api-helpers/product';
 
 export default function ProductStore({ categoryId }) {
+  const amount = useSelector(state => 
+    state.cart.reduce((sumAmount, product) => {
+      sumAmount[product._id] = product.amount;
+      return sumAmount;
+    }, {})
+  );
   const [values, setValues] = useState({
     loading: false,
     products: [],
@@ -29,7 +36,7 @@ export default function ProductStore({ categoryId }) {
     <Root>
       {
         values.products.map(product => (
-          <ProductCard key={product._id} product={product} />
+          <ProductCard key={product._id} product={product} cartAmount={amount[product._id]} />
         ))
       }
     </Root>

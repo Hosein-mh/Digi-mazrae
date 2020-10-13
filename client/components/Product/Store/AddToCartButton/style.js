@@ -32,18 +32,23 @@ export const ButtonContent = styled.span `
 `;
 
 export const SelectItemsContainer = styled.div `
-  width: 0;
-  height: 90px;
+  width:  90px;
+  height: 0;
   background: #fff;
-  border-top: 1px solid ${AppbarBg};
-  border-radius: 0 0 15px 15px;
+  border-radius: 15px 15px 0 0;
   position: absolute;
-  top: 0;
+  bottom:100px;
   right: 10px;
   transition: all 300ms ease-in-out;
+  visibility: hidden;
   &.show {
-    width: 300px;
+    height: 100px;
+    visibility: visible;
   }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const SelectItems = styled.ul `
@@ -52,7 +57,7 @@ export const SelectItems = styled.ul `
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow-x: hidden;
+  overflow: hidden;
 `;
 export const ItemOption = styled.li `
   width: 50px;
@@ -63,6 +68,6 @@ export const ItemOption = styled.li `
   justify-content: center;
   cursor: pointer;
   padding: 10px;
-  border-left: 1px solid ${AppbarBg};
   text-align: center;
+  user-select: none;
 `;

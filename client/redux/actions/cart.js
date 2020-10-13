@@ -27,7 +27,7 @@ export const updateAmountRequest = (id, amount) => ({
   amount,
 });
 
-export const updaateAmountSuccess = (id, amount) => ({
+export const updateAmountSuccess = (id, amount) => ({
   type: CART_UPDATE_AMOUNT_SUCCESS,
   id,
   amount,
