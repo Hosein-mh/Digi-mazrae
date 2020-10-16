@@ -2,14 +2,13 @@ import React from 'react'
 
 export default function Trash() {
   return (
-    <svg id="trashIcon" xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 75.19 104.694">
-      <path id="Path_4" data-name="Path 4" d="M233.667,194.667,240,260.945s4.625,6.555,10,6.555h44.333s7.5-1.457,8.167-6.555,4.5-66.278,4.5-66.278Z" transform="translate(-231.905 -162.806)" fill="#EE4540"/>
-      <line id="Line_1" data-name="Line 1" x1="2" y2="53" transform="translate(52.595 39.694)" fill="none" stroke="#fff" strokeWidth="2"/>
-      <line id="Line_2" data-name="Line 2" x2="1" y2="53" transform="translate(38.595 39.694)" fill="none" stroke="#fff" strokeWidth="2"/>
-      <line id="Line_3" data-name="Line 3" x2="4" y2="53" transform="translate(20.595 39.694)" fill="none" stroke="#fff" strokeWidth="2"/>
-      <g id="trash-head" transform="matrix(0.985, -0.174, 0.174, 0.985, 0, 12.676)">
-        <rect id="Rectangle_6" data-name="Rectangle 6" width="73" height="10" rx="3" transform="translate(0 9)" fill="#EE4540"/>
-        <path id="Path_5" data-name="Path 5" d="M0,0H20V6.667H0Z" transform="translate(27)" fill="#EE4540"/>
+    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 54.762 63.02">
+      <g id="TrashIcon" transform="translate(2.5 2.5)">
+        <path id="Path_14" data-name="Path 14" d="M108.159,95.18v33.983s-.2,7.045,8.465,7.045h31.247s6.619.46,6.619-7.045V95.18" transform="translate(-106.368 -78.202)" fill="none" stroke="#81858b" strokeLinecap="round" strokeWidth="5"/>
+        <line id="Line_18" data-name="Line 18" y2="25.501" transform="translate(16.132 20.635)" fill="none" stroke="#81858b" strokeLinecap="round" strokeWidth="6"/>
+        <line id="Line_19" data-name="Line 19" y2="25.501" transform="translate(32.132 20.635)" fill="none" stroke="#81858b" strokeLinecap="round" strokeWidth="6"/>
+        <path id="Path_15" data-name="Path 15" d="M104.368,90.584h49.762" transform="translate(-104.368 -82.364)" fill="none" stroke="#81858b" strokeLinecap="round" strokeWidth="5"/>
+        <path id="Path_16" data-name="Path 16" d="M117.309,86.364h16" transform="translate(-101.177 -86.364)" fill="none" stroke="#81858b" strokeLinecap="round" strokeWidth="5"/>
       </g>
     </svg>
   )

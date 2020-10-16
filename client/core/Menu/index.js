@@ -7,6 +7,7 @@ import logoDark from '../../assets/images/logoDark.png';
 import RootContainer from '../../components/RootContainer';
 import Settings from '../../components/Settings';
 import Login from '../../components/user/Login';
+import ShoppingCart from '../../components/ShoppingCart';
 
 export default function Menu() {
   const darkThemeEnabled = useSelector(state => state.theme.isDarkTheme);
@@ -21,6 +22,7 @@ export default function Menu() {
             </Link>
             <FloatLeft>
               <Login />
+              <ShoppingCart />
               <Settings />
             </FloatLeft>
           </LinksContainer>
