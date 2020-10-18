@@ -5,6 +5,7 @@ import Login from '../components/user/Login';
 import NotFounf from '../components/NotFound';
 import { Switch, Route } from 'react-router-dom';
 import Category from '../components/Category';
+import Cart from '../components/Cart';
 
 export default function globalRoutes() {
   return (
@@ -13,7 +14,8 @@ export default function globalRoutes() {
       <Switch>
         <Route path="/signin" component={() => <Login fired={true} />} />
         <Route path="/categories/:categoryId" component={Category} />
-        <Route path="/" component={Home}/>
+        <Route path="/cart" component={Cart} />
+        <Route exact path="/" component={Home}/>
         <Route path="/*">
           <NotFounf />
         </Route>
