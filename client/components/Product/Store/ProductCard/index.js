@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
+import PropTyps from 'prop-types';
 import Carousel from 'react-elastic-carousel';
+import { Link } from 'react-router-dom';
 import { toFarsiNumber } from '../../../../utils/globalHelpers';
 import AddToCartButton from '../AddToCartButton';
 import AddToLikes from '../AddToLikes';
@@ -38,9 +40,18 @@ export default function ProductCard({ product, cartAmount }) {
         }
         </Carousel>
       </ProductGallery>
-      <ProductTitle>{product.name}</ProductTitle>
-      <ProductPrice>{/*toFarsiNumber(product.price)*/product.price} تومان</ProductPrice>
+      <Link to={'/product/' + product._id}>
+        <ProductTitle>
+          {product.name}
+        </ProductTitle>
+      </Link>
+      <ProductPrice>{toFarsiNumber(product.price)} تومان</ProductPrice>
       <AddToCartButton product={product} cartAmount={cartAmount} />
     </Root>
   )
+};
+
+ProductCard.propTypes = {
+  product: PropTyps.object.isRequired,
+  cartAmount: PropTyps.number,
 }

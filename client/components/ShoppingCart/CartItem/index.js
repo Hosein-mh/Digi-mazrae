@@ -25,7 +25,7 @@ export default function index({ item }) {
 
   return (
     <Root>
-      <Link to={`/product/${item._id}`} class="cart_Item-Link">
+      <Link to={`/product/${item._id}`} className="cart_Item-Link">
         <CartItemImage>
           <img src={"/" + item.photo} alt={item.name} />
         </CartItemImage>

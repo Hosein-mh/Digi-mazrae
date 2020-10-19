@@ -45,7 +45,7 @@ export default function index() {
         <CartBasketList>
           {
             cart.map(item => {
-              return (<CartItem item={item} />);
+              return (<CartItem key={item._id} item={item} />);
             })
           }
         </CartBasketList>

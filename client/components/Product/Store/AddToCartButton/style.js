@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { AppbarBg } from '../../../../theme';
 
 export const Root = styled.div `
+  width: 100%;
   position: absolute;
   bottom: -30px;
   right: -10px;

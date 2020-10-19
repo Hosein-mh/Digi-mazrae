@@ -31,7 +31,7 @@ const getPhotoPath = (file) => {
 
 export const productById = async (req, res, next, id) => {
   try {
-    let product = await Product.findById(id);
+    let product = await Product.findById(id).populate('category').exec();
     if (!product) {
       return res.status(401).json({
         error: 'محصولی با این مشخصات یافت نشد!'
@@ -41,7 +41,8 @@ export const productById = async (req, res, next, id) => {
     next();
   } catch (error) {
     return res.status(400).json({
-      error: 'مشکل دریافت اطلاعات محصول'
+      error: 'مشکل دریافت اطلاعات محصول',
+      type: error,
     });
   }
 }
