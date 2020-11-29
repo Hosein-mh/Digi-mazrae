@@ -26,6 +26,7 @@ import {
   CartItemRemove,
   Quantity,
   AddToBasketButton,
+  ErrorContainer,
 } from './style';
 import GalleryViewer from './Gallery';
 import QualityIconCheck from '../icons/QualityCheck.icon';
@@ -34,7 +35,10 @@ import { toFarsiNumber } from '../../utils/globalHelpers';
 import QuantitySelector from './CartQuantitySelector';
 import TrashIcon from '../icons/Trash.icon';
 
+import RelatedProducts from './RelatedProducts';
+
 import { removeFromCart, addToCartRequest } from '../../redux/actions/cart';
+import Loader from '../Loader';
 
 export default function ProductPage() {
   const initialState = {
@@ -71,6 +75,8 @@ export default function ProductPage() {
         setValues({
           ...values, loading: false, error: "مشکل در برقراری ارتباط با پایگاه داده", productData: {}
         })
+      } else if (!apiResponse.ok || apiResponse.data.error) {
+        setValues({...values, loadign: false, productData: {}, error: apiResponse.data.error })
       } else {
         (apiResponse.ok && apiResponse.status == 200) ?
           setValues({
@@ -82,7 +88,7 @@ export default function ProductPage() {
           }):
         (!apiResponse.ok || apiResponse.status == 400) ?
           setValues({
-            ...values, loading: false, error: productData.data.error,
+            ...values, loading: false, error: "مشکل دریافت اطلاعات محصول",
             productData: {},
           }) : 
           setValues(initialState);
@@ -103,7 +109,17 @@ export default function ProductPage() {
       <RootContainer>
         {
           values.loading &&
-          <div>loading ...</div>
+          <Container>
+            <Loader loading={values.loading} loadingMessage="لطفا منتظر بمانید" />
+          </Container>
+        }
+        {
+          values.error.length > 0 &&
+          <Container>
+            <ErrorContainer>
+              {values.error}
+            </ErrorContainer>
+          </Container>
         }
         {
           values.productData.name &&
@@ -168,6 +184,7 @@ export default function ProductPage() {
               </BasketAndAmount>
             </AddsInfo>
           </ProductArticle>
+          <RelatedProducts categoryId={values.category._id} />
         </Container>
         }
       </RootContainer>

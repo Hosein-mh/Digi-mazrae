@@ -219,3 +219,13 @@ export const AddToBasketButton = styled.button `
   border-radius: 4px;
   cursor: pointer; 
 `;
+
+export const ErrorContainer = styled.div `
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: calc(100vh - 100px);
+  font-size: 1.2rem;
+  color: ${digiText};
+`;
