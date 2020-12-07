@@ -36,6 +36,7 @@ import QuantitySelector from './CartQuantitySelector';
 import TrashIcon from '../icons/Trash.icon';
 
 import RelatedProducts from './RelatedProducts';
+import Ptabs from './Ptabs';
 
 import { removeFromCart, addToCartRequest } from '../../redux/actions/cart';
 import Loader from '../Loader';
@@ -185,6 +186,7 @@ export default function ProductPage() {
             </AddsInfo>
           </ProductArticle>
           <RelatedProducts categoryId={values.category._id} />
+          <Ptabs productId={values.productData._id} />
         </Container>
         }
       </RootContainer>

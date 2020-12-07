@@ -74,7 +74,7 @@ export const ProductHead = styled.div `
     height: 2px;
     background: ${AppbarBg};
     position: absolute;
-    bottom: -5px;
+    bottom: -2rem;
     right: 0;
   }
 `;
@@ -88,6 +88,7 @@ export const ProductTitle = styled.p `
 
 export const ProductInfo = styled.div `
   display: flex;
+  margin-top: 2rem;
 `;
 
 export const ProductParams = styled.div `

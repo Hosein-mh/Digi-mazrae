@@ -7,6 +7,7 @@ import { Switch, Route } from 'react-router-dom';
 import Category from '../components/Category';
 import Cart from '../components/Cart';
 import Product from '../components/Product';
+import NewCommentPage from '../components/Product/NewCommentPage';
 
 export default function globalRoutes() {
   return (
@@ -15,6 +16,7 @@ export default function globalRoutes() {
       <Switch>
         <Route path="/signin" component={() => <Login fired={true} />} />
         <Route path="/categories/:categoryId" component={Category} />
+        <Route path="/product/comment/:productId" component={NewCommentPage} />
         <Route path="/product/:productId" component={Product} />
         <Route path="/cart" component={Cart} />
         <Route exact path="/" component={Home}/>
